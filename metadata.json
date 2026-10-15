@@ -1,0 +1,8 @@
+{
+  "name": "Toshik & Tanaya's Wedding Celebration",
+  "description": "Official engagement ceremony and Sakharpuda invitation for Toshik & Tanaya. Explore event schedule, get directions to Aditya Villa, countdown, and interact with the photo gallery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

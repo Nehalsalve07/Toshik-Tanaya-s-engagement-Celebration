@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans-modern {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* Subtle Indian Royal Gold Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.1) 0%,
+    rgba(242, 203, 96, 0.4) 50%,
+    rgba(212, 175, 55, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 6s infinite ease-in-out;
+}
+
+/* Authentic Indian Floral Pushpa Vrishti (Falling Petal Physics) */
+@keyframes petalFallSway1 {
+  0% {
+    transform: translateY(-30px) translateX(0px) rotate(0deg) rotateX(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  25% {
+    transform: translateY(280px) translateX(45px) rotate(80deg) rotateX(120deg);
+  }
+  50% {
+    transform: translateY(580px) translateX(-35px) rotate(190deg) rotateX(240deg);
+  }
+  75% {
+    transform: translateY(880px) translateX(40px) rotate(290deg) rotateX(320deg);
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(1180px) translateX(10px) rotate(380deg) rotateX(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes petalFallSway2 {
+  0% {
+    transform: translateY(-30px) translateX(0px) rotate(0deg) rotateY(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  30% {
+    transform: translateY(320px) translateX(-50px) rotate(-90deg) rotateY(140deg);
+  }
+  60% {
+    transform: translateY(680px) translateX(40px) rotate(-210deg) rotateY(260deg);
+  }
+  85% {
+    transform: translateY(960px) translateX(-25px) rotate(-310deg) rotateY(320deg);
+    opacity: 0.7;
+  }
+  95% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(1200px) translateX(-5px) rotate(-390deg) rotateY(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes petalFallSway3 {
+  0% {
+    transform: translateY(-30px) translateX(0px) rotate(15deg) scale(0.9);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.8;
+  }
+  35% {
+    transform: translateY(380px) translateX(30px) rotate(120deg) scale(1.05);
+  }
+  65% {
+    transform: translateY(740px) translateX(-40px) rotate(240deg) scale(0.95);
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(1150px) translateX(20px) rotate(360deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.petal-anim-1 {
+  animation: petalFallSway1 linear infinite;
+  will-change: transform, opacity;
+}
+
+.petal-anim-2 {
+  animation: petalFallSway2 linear infinite;
+  will-change: transform, opacity;
+}
+
+.petal-anim-3 {
+  animation: petalFallSway3 linear infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal-anim-1,
+  .petal-anim-2,
+  .petal-anim-3 {
+    animation: none !important;
+    display: none !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8860B;
+}
