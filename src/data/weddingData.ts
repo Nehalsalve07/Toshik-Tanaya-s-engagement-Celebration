@@ -1,12 +1,17 @@
 import { ScheduleEvent, GalleryPhoto, GuestWish } from '../types/wedding';
+import heroCoupleImg from '../assets/images/wedding_hero_couple_1791899469399.jpg';
+import venueVillaImg from '../assets/images/wedding_venue_villa_1791899471794.jpg';
+import ringTrayImg from '../assets/images/engagement_ring_tray_1791903387685.jpg';
+import mandapSetupImg from '../assets/images/wedding_mandap_setup_1791899471844.jpg';
+import haldiCelebrationImg from '../assets/images/wedding_haldi_celebration_1791899472126.jpg';
 
-// Generated image assets
+// Bundled image assets for production & development
 export const IMAGES = {
-  heroCouple: "/src/assets/images/wedding_hero_couple_1791899469399.jpg",
-  venueVilla: "/src/assets/images/wedding_venue_villa_1791899471794.jpg",
-  ringTray: "/src/assets/images/engagement_ring_tray_1791903387685.jpg",
-  mandapSetup: "/src/assets/images/wedding_mandap_setup_1791899471844.jpg",
-  haldiCelebration: "/src/assets/images/wedding_haldi_celebration_1791899472126.jpg",
+  heroCouple: heroCoupleImg,
+  venueVilla: venueVillaImg,
+  ringTray: ringTrayImg,
+  mandapSetup: mandapSetupImg,
+  haldiCelebration: haldiCelebrationImg,
 };
 
 export const WEDDING_SCHEDULE: ScheduleEvent[] = [

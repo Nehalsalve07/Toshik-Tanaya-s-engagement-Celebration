@@ -116,12 +116,16 @@ class IndianFestiveSynth {
     // Check if this is a recorded authentic Indian song track
     if (this.currentTrack === 'shehnai_song' || this.currentTrack === 'shehnai_pahadi') {
       try {
-        const audioSrc =
+        const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+          ? import.meta.env.BASE_URL
+          : `${import.meta.env.BASE_URL}/`;
+        const fileName =
           this.currentTrack === 'shehnai_song'
-            ? '/audio/shehnai-song.mp3'
-            : '/audio/shehnai-pahadi.mp3';
+            ? 'audio/shehnai-song.mp3'
+            : 'audio/shehnai-pahadi.mp3';
+        const audioSrc = `${baseUrl}${fileName}`;
 
-        if (!this.audioElement || this.audioElement.src !== window.location.origin + audioSrc) {
+        if (!this.audioElement || !this.audioElement.src.endsWith(fileName)) {
           if (this.audioElement) {
             this.audioElement.pause();
           }
