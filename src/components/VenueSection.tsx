@@ -21,68 +21,68 @@ export const VenueSection: React.FC = () => {
   )}`;
 
   return (
-    <section id="venue" className="py-16 md:py-24 bg-[#FAF7F2] border-t border-[#E8DFC8]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="venue" className="py-16 md:py-24 bg-gradient-to-b from-[#21183F] via-[#161B3D] to-[#10152F] border-t border-[#D8C19A]/20">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6">
         {/* Section Header */}
-        <div className="text-center space-y-3 mb-12 max-w-2xl mx-auto">
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#AA820A]">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>Celebration Venue</span>
+        <div className="text-center space-y-2.5 sm:space-y-3 mb-10 sm:mb-12 max-w-2xl mx-auto">
+          <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 text-xs font-semibold tracking-widest uppercase text-[#D8C19A] bg-[#10152F]/70 border border-[#D8C19A]/30 rounded-full">
+            <MapPin className="w-3.5 h-3.5 text-[#FFEAA7]" />
+            <span className="font-montserrat">Celebration Venue</span>
           </div>
-          <h2 className="font-playfair text-3xl md:text-4xl text-[#7A1B28]">
-            Aditya Villa & Grounds
+          <h2 className="font-script text-3xl sm:text-5xl md:text-6xl text-[#FFF5E9] leading-tight">
+            Aditya Villa & Lawns
           </h2>
-          <p className="text-sm text-[#665753] leading-relaxed">
+          <p className="font-cormorant text-xs sm:text-base text-[#D8C19A]/90 leading-relaxed">
             A serene, royal villa estate located on Besa-Pipla Road, prepared with grandeur to welcome you for the sacred rites and evening reception.
           </p>
         </div>
 
-        {/* 2-Column Venue Showcase: Left Venue Photo & Highlights / Right Map & Directions */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
+        {/* 2-Column Venue Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch mb-12">
           {/* Left: Venue Image & Ambiance card */}
-          <div className="lg:col-span-6 bg-white border border-[#E8DFC8] rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
-            <div className="relative aspect-[16/10] overflow-hidden bg-[#EFE6D5]">
+          <div className="lg:col-span-6 bg-[#FFF5E9] text-[#342044] border-2 border-[#D8C19A] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between">
+            <div className="relative aspect-[16/10] overflow-hidden bg-[#21183F]">
               <img
                 src={IMAGES.venueVilla}
                 alt="Aditya Villa Wedding Reception Setup"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-xs uppercase tracking-widest font-semibold text-[#F2CB60]">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#10152F]/80 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-4 right-4 text-white">
+                <span className="text-[10px] sm:text-xs uppercase tracking-widest font-semibold text-[#D8C19A] font-montserrat">
                   Grand Villa Courtyard & Lawns
                 </span>
-                <h3 className="font-playfair text-xl font-bold">
+                <h3 className="font-cormorant text-xl sm:text-2xl font-bold text-[#FFF5E9]">
                   {WEDDING_DETAILS.venueName}
                 </h3>
               </div>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 md:p-8 space-y-4">
               <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#AA820A]">
+                <p className="text-xs font-bold uppercase tracking-wider text-[#73526E] font-montserrat">
                   Address & Coordinates
                 </p>
-                <p className="text-sm font-medium text-[#2D2421] leading-relaxed">
+                <p className="font-cormorant text-sm sm:text-base md:text-lg font-semibold text-[#342044] leading-relaxed">
                   {WEDDING_DETAILS.venueAddress}
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex flex-wrap items-center gap-2.5 pt-2">
                 <button
                   onClick={handleCopyAddress}
-                  className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#4A3E3D] bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#E8DFC8] rounded-lg transition-colors cursor-pointer"
+                  className="min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold text-[#342044] bg-white hover:bg-[#FFFDF9] border border-[#D8C19A] rounded-full transition-all cursor-pointer shadow-sm touch-manipulation active:scale-95"
                 >
                   {copied ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-700 font-semibold">Address Copied!</span>
+                      <span className="text-emerald-700 font-bold">Address Copied!</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-[#AA820A]" />
-                      <span>Copy Full Address</span>
+                      <Copy className="w-3.5 h-3.5 text-[#A88B58]" />
+                      <span>Copy Address</span>
                     </>
                   )}
                 </button>
@@ -91,102 +91,100 @@ export const VenueSection: React.FC = () => {
                   href={googleMapsUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[#7A1B28] hover:bg-[#58121C] rounded-lg shadow-sm transition-all"
+                  className="min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#342044] hover:bg-[#21183F] border border-[#D8C19A] rounded-full shadow-md transition-all touch-manipulation active:scale-95"
                 >
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>Open in Google Maps</span>
+                  <Navigation className="w-3.5 h-3.5 text-[#FFEAA7]" />
+                  <span>Google Maps</span>
                 </a>
 
                 <a
                   href={appleMapsUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#665753] hover:text-[#7A1B28] transition-colors"
+                  className="min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-medium text-[#73526E] bg-white hover:bg-[#FFF8EF] border border-[#D8C19A]/50 rounded-full transition-colors touch-manipulation active:scale-95"
                 >
                   <span>Apple Maps</span>
-                  <span className="text-[10px]">↗</span>
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Right: Interactive Navigation & Travel Guide Card */}
-          <div className="lg:col-span-6 bg-white border border-[#E8DFC8] rounded-2xl p-6 md:p-8 shadow-sm flex flex-col justify-between">
-            <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-[#E8DFC8] pb-4">
+          {/* Right: Embedded Interactive Google Map & Landmark Details */}
+          <div className="lg:col-span-6 bg-[#FFF5E9] text-[#342044] border-2 border-[#D8C19A] rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-[#D8C19A]/40 pb-3">
                 <div>
-                  <h3 className="font-playfair text-xl font-bold text-[#7A1B28]">
-                    Directions & Travel Information
+                  <h3 className="font-cormorant text-xl font-bold text-[#342044]">
+                    Interactive Route & Area Guide
                   </h3>
-                  <p className="text-xs text-[#665753] mt-0.5">
-                    Aditya Villa, Besa-Pipla Road, Nagpur Region
+                  <p className="text-xs text-[#73526E]">
+                    Besa-Pipla Road, Nagpur Metropolitan Region
                   </p>
                 </div>
-                <div className="w-9 h-9 rounded-full bg-[#FAF3DE] flex items-center justify-center text-[#AA820A]">
-                  <Sparkles className="w-4 h-4" />
-                </div>
+                <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#A88B58] bg-[#FFF8EF] border border-[#D8C19A] rounded-full">
+                  Free Valet Parking
+                </span>
               </div>
 
-              {/* Transit Distance Highlights */}
-              <div className="space-y-3">
-                <div className="flex items-start gap-3 p-3 bg-[#FAF7F2] rounded-xl border border-[#EFE6D5]">
-                  <Plane className="w-5 h-5 text-[#AA820A] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-semibold text-[#2D2421]">
-                      From Nagpur Airport (NAG)
-                    </p>
-                    <p className="text-xs text-[#665753]">
-                      Dr. Babasaheb Ambedkar International Airport is approximately <strong>8.5 km</strong> away (15–20 minutes drive via Somalwada & Besa Rd).
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-[#FAF7F2] rounded-xl border border-[#EFE6D5]">
-                  <Train className="w-5 h-5 text-[#AA820A] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-semibold text-[#2D2421]">
-                      From Nagpur Railway Station (NGP)
-                    </p>
-                    <p className="text-xs text-[#665753]">
-                      Nagpur Central Railway Station is approximately <strong>11.5 km</strong> away (25–30 minutes drive via Manewada Ring Road).
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-[#FAF7F2] rounded-xl border border-[#EFE6D5]">
-                  <Car className="w-5 h-5 text-[#AA820A] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-semibold text-[#2D2421]">
-                      Parking & Valet
-                    </p>
-                    <p className="text-xs text-[#665753]">
-                      Complimentary valet service and dedicated parking for 150+ guest vehicles directly adjacent to Shri Suraj Gruhniwaran society entrance.
-                    </p>
-                  </div>
-                </div>
+              {/* Map Preview Frame */}
+              <div className="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden border border-[#D8C19A] shadow-inner bg-[#21183F]">
+                <iframe
+                  title="Aditya Villa Location Map"
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                    WEDDING_DETAILS.mapSearchQuery
+                  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                  className="w-full h-full border-0 filter contrast-105"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  allowFullScreen
+                />
               </div>
 
-              {/* Climate snapshot for November */}
-              <div className="flex items-center gap-3 p-3 bg-[#FAF3DE]/70 rounded-xl border border-[#EADBBD]">
-                <SunDim className="w-5 h-5 text-[#AA820A] shrink-0" />
-                <p className="text-xs text-[#665753]">
-                  <strong>Nagpur Weather in November:</strong> Pleasant autumn climate (~22°C to 26°C in the evenings). Outdoor banquet settings will be delightfully comfortable.
-                </p>
+              {/* Landmark Highlights */}
+              <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-[#5B4058]">
+                <div className="p-3 bg-white/80 rounded-xl border border-[#D8C19A]/40">
+                  <p className="font-bold text-[#342044]">Landmark:</p>
+                  <p className="text-[11px] text-[#73526E]">Near New Hanuman Nagar & Besa Square</p>
+                </div>
+                <div className="p-3 bg-white/80 rounded-xl border border-[#D8C19A]/40">
+                  <p className="font-bold text-[#342044]">Atmosphere:</p>
+                  <p className="text-[11px] text-[#73526E]">Open air lush lawns with grand pavilion</p>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Direct Quick Map Button */}
-            <div className="pt-6 border-t border-[#E8DFC8]">
-              <a
-                href={googleMapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#7A1B28] hover:bg-[#58121C] rounded-xl transition-all"
-              >
-                <Navigation className="w-4 h-4" />
-                <span>Start Turn-by-Turn Navigation</span>
-              </a>
+        {/* 3 Travel Modes Guide */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[#161B3D]/80 text-[#FFF5E9] border border-[#D8C19A]/30 rounded-2xl p-6 shadow-md backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-[#21183F] border border-[#D8C19A]/40 flex items-center justify-center text-[#FFEAA7] mb-4">
+              <Plane className="w-5 h-5 text-[#FFEAA7]" />
             </div>
+            <h4 className="font-cormorant text-lg font-bold text-[#FFF5E9]">By Air</h4>
+            <p className="text-xs text-[#D8C19A]/80 mt-1 leading-relaxed">
+              Dr. Babasaheb Ambedkar International Airport (NAG) is located approx 8.5 km from Aditya Villa (~18 mins drive via Wardha Rd / Outer Ring Rd).
+            </p>
+          </div>
+
+          <div className="bg-[#161B3D]/80 text-[#FFF5E9] border border-[#D8C19A]/30 rounded-2xl p-6 shadow-md backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-[#21183F] border border-[#D8C19A]/40 flex items-center justify-center text-[#FFEAA7] mb-4">
+              <Train className="w-5 h-5 text-[#FFEAA7]" />
+            </div>
+            <h4 className="font-cormorant text-lg font-bold text-[#FFF5E9]">By Train</h4>
+            <p className="text-xs text-[#D8C19A]/80 mt-1 leading-relaxed">
+              Nagpur Junction Railway Station is located approx 11 km from the venue (~25 mins drive). Ajni Railway Station is approx 7.5 km.
+            </p>
+          </div>
+
+          <div className="bg-[#161B3D]/80 text-[#FFF5E9] border border-[#D8C19A]/30 rounded-2xl p-6 shadow-md backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-[#21183F] border border-[#D8C19A]/40 flex items-center justify-center text-[#FFEAA7] mb-4">
+              <Car className="w-5 h-5 text-[#FFEAA7]" />
+            </div>
+            <h4 className="font-cormorant text-lg font-bold text-[#FFF5E9]">By Road & Cabs</h4>
+            <p className="text-xs text-[#D8C19A]/80 mt-1 leading-relaxed">
+              Ola, Uber, and city autos operate smoothly to Aditya Villa on Besa-Pipla Road. Spacious valet parking available for private vehicles.
+            </p>
           </div>
         </div>
       </div>

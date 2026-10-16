@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Download, ExternalLink, Clock } from 'lucide-react';
+import { Calendar, Download, ExternalLink, Clock, Sparkles } from 'lucide-react';
 import { WEDDING_DETAILS, getGoogleCalendarUrl, downloadIcsFile } from '../utils/calendar';
 
 export const Countdown: React.FC = () => {
@@ -44,103 +44,108 @@ export const Countdown: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4">
-      <div className="relative bg-white/90 backdrop-blur-md border border-[#E8DFC8] rounded-2xl p-6 md:p-8 shadow-sm">
-        {/* Subtle decorative gold corner motif */}
-        <div className="absolute top-2 left-2 text-[#D4AF37]/50 text-xs font-serif">❖</div>
-        <div className="absolute top-2 right-2 text-[#D4AF37]/50 text-xs font-serif">❖</div>
-        <div className="absolute bottom-2 left-2 text-[#D4AF37]/50 text-xs font-serif">❖</div>
-        <div className="absolute bottom-2 right-2 text-[#D4AF37]/50 text-xs font-serif">❖</div>
+    <div className="w-full max-w-3xl mx-auto px-2 sm:px-4">
+      {/* Outer Card with Ivory & Champagne Gold Styling */}
+      <div className="relative bg-[#FFF5E9] text-[#342044] border-2 border-[#D8C19A] rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 md:p-8 shadow-2xl overflow-hidden">
+        {/* Decorative corner accents */}
+        <span className="absolute top-2 left-2.5 text-[#D8C19A] text-[10px] sm:text-xs">✦</span>
+        <span className="absolute top-2 right-2.5 text-[#D8C19A] text-[10px] sm:text-xs">✦</span>
+        <span className="absolute bottom-2 left-2.5 text-[#D8C19A] text-[10px] sm:text-xs">✦</span>
+        <span className="absolute bottom-2 right-2.5 text-[#D8C19A] text-[10px] sm:text-xs">✦</span>
 
-        <div className="text-center space-y-2 mb-6">
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#AA820A]">
-            <Clock className="w-3.5 h-3.5" />
-            <span>Counting Down to Shubha Sakharpuda & Ring Ceremony</span>
+        {/* Inner thin decorative border */}
+        <div className="absolute inset-1.5 sm:inset-2 md:inset-3 rounded-xl sm:rounded-2xl border border-[#D8C19A]/40 pointer-events-none" />
+
+        <div className="relative z-10 text-center space-y-1 sm:space-y-2 mb-4 sm:mb-6">
+          <div className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold tracking-widest uppercase text-[#73526E]">
+            <Clock className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#D8C19A]" />
+            <span className="font-cormorant text-[11px] sm:text-xs md:text-sm font-bold tracking-widest text-[#342044]">
+              Auspicious Muhurat Countdown
+            </span>
           </div>
-          <h3 className="font-playfair text-2xl md:text-3xl text-[#7A1B28]">
-            {timeLeft.isPassed ? "The Auspicious Celebrations Have Begun!" : "Every Second Towards Our Engagement"}
+          <h3 className="font-script text-2xl sm:text-4xl md:text-5xl text-[#342044] leading-tight px-1">
+            {timeLeft.isPassed ? "The Auspicious Celebrations Have Begun!" : "Every Second Towards Forever"}
           </h3>
-          <p className="text-xs md:text-sm text-[#665753]">
-            10 November 2026 · 4:30 PM IST · Aditya Villa, Besa-Pipla
+          <p className="font-cormorant text-[11px] sm:text-xs md:text-sm text-[#73526E] font-medium tracking-wide">
+            10 November 2026 · 4:30 PM IST · Aditya Villa
           </p>
         </div>
 
-        {/* 4 Counter Blocks */}
-        <div className="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto mb-6">
-          <div className="flex flex-col items-center justify-center p-3 md:p-4 bg-[#FAF7F2] border border-[#EFE6D5] rounded-xl">
-            <span className="font-playfair text-2xl md:text-4xl lg:text-5xl font-bold text-[#7A1B28] tabular-nums">
+        {/* 4 Counter Blocks in Warm Ivory & Plum - Mobile optimized grid */}
+        <div className="relative z-10 grid grid-cols-4 gap-1.5 sm:gap-3 md:gap-4 max-w-xl mx-auto mb-4 sm:mb-6">
+          {/* Days */}
+          <div className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 bg-white/95 border border-[#D8C19A]/70 rounded-xl sm:rounded-2xl shadow-xs">
+            <span className="font-cormorant text-xl sm:text-3xl md:text-5xl font-bold text-[#342044] tabular-nums leading-none">
               {String(timeLeft.days).padStart(2, '0')}
             </span>
-            <span className="text-[10px] md:text-xs font-medium uppercase tracking-wider text-[#8A7A75] mt-1">
+            <span className="text-[9px] sm:text-[11px] md:text-xs font-semibold uppercase tracking-wider text-[#73526E] mt-1 sm:mt-1.5 font-montserrat">
               Days
             </span>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-3 md:p-4 bg-[#FAF7F2] border border-[#EFE6D5] rounded-xl">
-            <span className="font-playfair text-2xl md:text-4xl lg:text-5xl font-bold text-[#7A1B28] tabular-nums">
+          {/* Hours */}
+          <div className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 bg-white/95 border border-[#D8C19A]/70 rounded-xl sm:rounded-2xl shadow-xs">
+            <span className="font-cormorant text-xl sm:text-3xl md:text-5xl font-bold text-[#342044] tabular-nums leading-none">
               {String(timeLeft.hours).padStart(2, '0')}
             </span>
-            <span className="text-[10px] md:text-xs font-medium uppercase tracking-wider text-[#8A7A75] mt-1">
+            <span className="text-[9px] sm:text-[11px] md:text-xs font-semibold uppercase tracking-wider text-[#73526E] mt-1 sm:mt-1.5 font-montserrat">
               Hours
             </span>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-3 md:p-4 bg-[#FAF7F2] border border-[#EFE6D5] rounded-xl">
-            <span className="font-playfair text-2xl md:text-4xl lg:text-5xl font-bold text-[#7A1B28] tabular-nums">
+          {/* Minutes */}
+          <div className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 bg-white/95 border border-[#D8C19A]/70 rounded-xl sm:rounded-2xl shadow-xs">
+            <span className="font-cormorant text-xl sm:text-3xl md:text-5xl font-bold text-[#342044] tabular-nums leading-none">
               {String(timeLeft.minutes).padStart(2, '0')}
             </span>
-            <span className="text-[10px] md:text-xs font-medium uppercase tracking-wider text-[#8A7A75] mt-1">
-              Minutes
+            <span className="text-[9px] sm:text-[11px] md:text-xs font-semibold uppercase tracking-wider text-[#73526E] mt-1 sm:mt-1.5 font-montserrat">
+              Mins
             </span>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-3 md:p-4 bg-[#FAF7F2] border border-[#EFE6D5] rounded-xl">
-            <span className="font-playfair text-2xl md:text-4xl lg:text-5xl font-bold text-[#AA820A] tabular-nums">
+          {/* Seconds */}
+          <div className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 bg-gradient-to-b from-[#FFFDF8] to-[#FFF0F4] border border-[#D8C19A] rounded-xl sm:rounded-2xl shadow-xs">
+            <span className="font-cormorant text-xl sm:text-3xl md:text-5xl font-bold text-[#9B2A4B] tabular-nums leading-none">
               {String(timeLeft.seconds).padStart(2, '0')}
             </span>
-            <span className="text-[10px] md:text-xs font-medium uppercase tracking-wider text-[#8A7A75] mt-1">
-              Seconds
+            <span className="text-[9px] sm:text-[11px] md:text-xs font-semibold uppercase tracking-wider text-[#9B2A4B] mt-1 sm:mt-1.5 font-montserrat">
+              Secs
             </span>
           </div>
         </div>
 
-        {/* Calendar Action */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#EFE6D5]/80 text-xs text-[#665753]">
-          <div className="flex items-center gap-1.5 font-medium">
-            <span className="text-[#AA820A]">Save the Date:</span>
-            <span>Tuesday, 10 November 2026 · Auspicious Engagement Muhurat (4:30 PM)</span>
-          </div>
-
-          <div className="relative">
+        {/* Calendar Reminder Button & Dropdown with 44px minimum tap target */}
+        <div className="relative z-10 flex justify-center">
+          <div className="relative inline-block text-left w-full sm:w-auto">
             <button
               onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-[#7A1B28] bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#D4AF37]/50 rounded-lg transition-colors cursor-pointer"
+              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#342044] hover:bg-[#21183F] border border-[#D8C19A] rounded-full shadow-md transition-all cursor-pointer touch-manipulation active:scale-95"
             >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Add to Calendar</span>
+              <Calendar className="w-3.5 h-3.5 text-[#FFEAA7]" />
+              <span>Save Date to Calendar</span>
             </button>
 
             {calendarMenuOpen && (
-              <div className="absolute right-0 bottom-full mb-2 w-56 bg-white border border-[#E8DFC8] rounded-xl shadow-lg p-2 z-50">
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 max-w-[90vw] rounded-2xl shadow-2xl bg-white border border-[#D8C19A] p-2 z-50 animate-fadeIn">
                 <a
                   href={getGoogleCalendarUrl()}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setCalendarMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2 text-xs text-[#3D3230] hover:bg-[#FAF7F2] rounded-lg transition-colors"
+                  className="min-h-[44px] flex items-center gap-2.5 px-3.5 py-2.5 text-xs font-medium text-[#342044] hover:bg-[#FFF5E9] rounded-xl transition-colors"
                 >
+                  <ExternalLink className="w-4 h-4 text-[#D8C19A]" />
                   <span>Google Calendar</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#AA820A]" />
                 </a>
                 <button
                   onClick={() => {
-                    setCalendarMenuOpen(false);
                     downloadIcsFile();
+                    setCalendarMenuOpen(false);
                   }}
-                  className="w-full flex items-center justify-between px-3 py-2 text-xs text-[#3D3230] hover:bg-[#FAF7F2] rounded-lg transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-2.5 px-3.5 py-2.5 text-xs font-medium text-[#342044] hover:bg-[#FFF5E9] rounded-xl transition-colors cursor-pointer text-left"
                 >
-                  <span>Apple / Outlook (iCal)</span>
-                  <Download className="w-3.5 h-3.5 text-[#AA820A]" />
+                  <Download className="w-4 h-4 text-[#D8C19A]" />
+                  <span>Apple / Outlook (.ics)</span>
                 </button>
               </div>
             )}

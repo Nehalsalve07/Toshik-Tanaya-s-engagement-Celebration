@@ -65,118 +65,126 @@ export const WishesWall: React.FC = () => {
   };
 
   return (
-    <section id="wishes" className="py-16 md:py-24 bg-white border-t border-[#E8DFC8]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="wishes" className="py-16 md:py-24 bg-gradient-to-b from-[#21183F] via-[#161B3D] to-[#10152F] border-t border-[#D8C19A]/20">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6">
         {/* Header */}
-        <div className="text-center space-y-3 mb-12 max-w-2xl mx-auto">
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#AA820A]">
-            <MessageSquareHeart className="w-3.5 h-3.5" />
-            <span>Guestbook of Love</span>
+        <div className="text-center space-y-2.5 sm:space-y-3 mb-10 sm:mb-12 max-w-2xl mx-auto">
+          <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 text-xs font-semibold tracking-widest uppercase text-[#D8C19A] bg-[#10152F]/70 border border-[#D8C19A]/30 rounded-full">
+            <MessageSquareHeart className="w-3.5 h-3.5 text-[#FFEAA7]" />
+            <span className="font-montserrat">Guestbook of Love</span>
           </div>
-          <h2 className="font-playfair text-3xl md:text-4xl text-[#7A1B28]">
-            Engagement Blessings for Toshik & Tanaya
+          <h2 className="font-script text-3xl sm:text-5xl md:text-6xl text-[#FFF5E9] leading-tight">
+            Blessings for Toshik & Tanaya
           </h2>
-          <p className="text-sm text-[#665753] leading-relaxed">
+          <p className="font-cormorant text-xs sm:text-base text-[#D8C19A]/90 leading-relaxed">
             Leave a sacred prayer, playful wish, or loving congratulations as Toshik & Tanaya celebrate their auspicious engagement and begin their new journey together.
           </p>
         </div>
 
-        {/* 2-Column: Left Form / Right Wall Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left: Leave a wish form */}
-          <div className="lg:col-span-5 bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl p-6 md:p-8 shadow-sm">
-            <h3 className="font-playfair text-xl font-bold text-[#7A1B28] mb-2 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#AA820A]" />
-              <span>Leave Your Blessing</span>
-            </h3>
-            <p className="text-xs text-[#665753] mb-6">
-              Your warm words will be displayed immediately for the couple and guests.
-            </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+          {/* Left Form: Warm Ivory Invitation Card Styling */}
+          <div className="lg:col-span-5 bg-[#FFF5E9] text-[#342044] border-2 border-[#D8C19A] rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl relative">
+            <span className="absolute top-3 right-4 text-[#D8C19A] text-xs">✦</span>
+            <span className="absolute bottom-3 left-4 text-[#D8C19A] text-xs">✦</span>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5 sm:space-y-2 mb-5 sm:mb-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#73526E] font-montserrat">
+                Write a Blessing
+              </span>
+              <h3 className="font-cormorant text-xl sm:text-2xl font-bold text-[#342044]">
+                Send Wishes to the Couple
+              </h3>
+              <p className="text-xs text-[#73526E]">
+                Your loving message will appear immediately on the celebration wishes wall.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
               <div className="space-y-1">
-                <label className="text-xs font-semibold uppercase tracking-wider text-[#4A3E3D] block">
-                  Your Name *
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#342044] block font-montserrat">
+                  Your Full Name *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Anand Deshmukh"
+                  placeholder="e.g. Rahul Deshmukh"
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-white border border-[#E8DFC8] rounded-xl focus:outline-none focus:border-[#7A1B28]"
+                  className="w-full min-h-[44px] px-3.5 sm:px-4 py-2 text-sm bg-white border border-[#D8C19A] rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#342044] text-[#342044]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-semibold uppercase tracking-wider text-[#4A3E3D] block">
-                  Relation to Couple
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#342044] block font-montserrat">
+                  Relation / Connection
                 </label>
                 <input
                   type="text"
                   placeholder="e.g. Groom's College Friend / Bride's Cousin"
                   value={relationship}
                   onChange={(e) => setRelationship(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-white border border-[#E8DFC8] rounded-xl focus:outline-none focus:border-[#7A1B28]"
+                  className="w-full min-h-[44px] px-3.5 sm:px-4 py-2 text-sm bg-white border border-[#D8C19A] rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#342044] text-[#342044]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-semibold uppercase tracking-wider text-[#4A3E3D] block">
-                  Your Message & Blessings *
+                <label className="text-xs font-semibold uppercase tracking-wider text-[#342044] block font-montserrat">
+                  Blessing Message *
                 </label>
                 <textarea
-                  rows={4}
                   required
-                  placeholder="May your life together be blessed with endless laughter, boundless understanding, and lifelong joy..."
+                  rows={3}
+                  placeholder="Wishing you a lifetime of laughter, joy, and togetherness..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-white border border-[#E8DFC8] rounded-xl focus:outline-none focus:border-[#7A1B28]"
+                  className="w-full px-3.5 sm:px-4 py-2.5 text-sm bg-white border border-[#D8C19A] rounded-xl sm:rounded-2xl focus:outline-none focus:border-[#342044] text-[#342044]"
                 />
               </div>
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#7A1B28] hover:bg-[#58121C] rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+                disabled={isSubmitting || !author.trim() || !message.trim()}
+                className="w-full min-h-[44px] py-2.5 sm:py-3 px-6 text-xs font-semibold uppercase tracking-wider text-white bg-[#342044] hover:bg-[#21183F] disabled:opacity-50 rounded-full transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 border border-[#D8C19A]/50 touch-manipulation active:scale-95"
               >
-                <Send className="w-3.5 h-3.5" />
-                <span>Post Blessing</span>
+                <Send className="w-3.5 h-3.5 text-[#FFEAA7]" />
+                <span>{isSubmitting ? 'Sending Blessing...' : 'Post Your Blessing'}</span>
               </button>
             </form>
           </div>
 
-          {/* Right: Wishes feed */}
-          <div className="lg:col-span-7 space-y-4 max-h-[600px] overflow-y-auto pr-1">
-            {wishes.map((wish) => (
+          {/* Right: Live Wishes Stream */}
+          <div className="lg:col-span-7 space-y-3.5 sm:space-y-4 max-h-[640px] overflow-y-auto pr-0.5">
+            {wishes.map((item) => (
               <div
-                key={wish.id}
-                className="bg-[#FAF7F2] border border-[#E8DFC8] rounded-2xl p-5 hover:border-[#D4AF37]/60 transition-all shadow-sm"
+                key={item.id}
+                className="bg-[#161B3D] border border-[#D8C19A]/40 hover:border-[#D8C19A] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl transition-all duration-300"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h4 className="font-playfair font-bold text-sm text-[#2D2421]">
-                      {wish.author}
-                    </h4>
-                    <span className="text-[11px] text-[#AA820A] font-medium">
-                      {wish.relationship}
-                    </span>
+                <div className="flex items-start justify-between gap-3 mb-2.5">
+                  <div className="flex items-center gap-2.5 sm:gap-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-[#FFF5E9] text-[#342044] font-bold font-cormorant text-base sm:text-lg flex items-center justify-center border border-[#D8C19A] shrink-0">
+                      {item.author.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <h4 className="font-cormorant text-base sm:text-lg font-bold text-[#FFF5E9]">
+                        {item.author}
+                      </h4>
+                      <p className="text-[10px] sm:text-[11px] text-[#D8C19A]/80 font-montserrat">
+                        {item.relationship} · {item.createdAt}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-[#8A7A75]">{wish.createdAt}</span>
-                    <button
-                      onClick={() => handleLike(wish.id)}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-[#7A1B28] hover:bg-[#FAF0DC] rounded-lg border border-[#EADBBD] transition-colors cursor-pointer"
-                    >
-                      <Heart className="w-3 h-3 fill-[#7A1B28] text-[#7A1B28]" />
-                      <span className="tabular-nums font-semibold">{wish.likes}</span>
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleLike(item.id)}
+                    className="min-h-[36px] inline-flex items-center gap-1.5 px-3 py-1 bg-[#10152F]/70 hover:bg-[#10152F] border border-[#D8C19A]/30 rounded-full text-xs text-white transition-all cursor-pointer touch-manipulation active:scale-95"
+                  >
+                    <Heart className="w-3.5 h-3.5 fill-[#F4C8D7] text-[#F4C8D7]" />
+                    <span className="tabular-nums font-semibold text-[#FFF5E9]">{item.likes}</span>
+                  </button>
                 </div>
 
-                <p className="text-xs md:text-sm text-[#4A3E3D] leading-relaxed italic">
-                  "{wish.message}"
+                <p className="font-serif italic text-xs sm:text-sm text-[#FFF5E9]/90 leading-relaxed pl-0 sm:pl-12 pt-1 sm:pt-0">
+                  "{item.message}"
                 </p>
               </div>
             ))}

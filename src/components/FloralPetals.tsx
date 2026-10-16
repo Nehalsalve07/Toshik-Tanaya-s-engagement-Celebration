@@ -6,7 +6,7 @@ interface PetalConfig {
   duration: number; // seconds
   delay: number; // seconds
   size: number; // width in px
-  type: 'marigold' | 'rose' | 'jasmine' | 'marigold-yellow';
+  type: 'cherry-blossom' | 'rose-blush' | 'jasmine-white' | 'cherry-deep';
   animClass: string;
 }
 
@@ -15,33 +15,31 @@ interface FloralPetalsProps {
 }
 
 export const FloralPetals: React.FC<FloralPetalsProps> = ({ isActive = true }) => {
-  // Deterministic seed generation so it doesn't recalculate on every re-render
   const petals = useMemo<PetalConfig[]>(() => {
     const list: PetalConfig[] = [];
-    const count = 32;
+    const count = 30;
 
-    const flowerTypes: ('marigold' | 'rose' | 'jasmine' | 'marigold-yellow')[] = [
-      'marigold',
-      'rose',
-      'marigold-yellow',
-      'rose',
-      'marigold',
-      'jasmine',
-      'rose',
-      'marigold',
+    const flowerTypes: ('cherry-blossom' | 'rose-blush' | 'jasmine-white' | 'cherry-deep')[] = [
+      'cherry-blossom',
+      'rose-blush',
+      'jasmine-white',
+      'cherry-blossom',
+      'cherry-deep',
+      'rose-blush',
+      'jasmine-white',
+      'cherry-blossom',
     ];
 
     const animClasses = ['petal-anim-1', 'petal-anim-2', 'petal-anim-3'];
 
     for (let i = 0; i < count; i++) {
-      // Spread evenly across the width with slight jitter
-      const baseLeft = (i / count) * 98 + 1;
+      const baseLeft = (i / count) * 96 + 2;
       const jitter = ((i * 7) % 5) - 2;
-      const left = Math.max(1, Math.min(98, baseLeft + jitter));
+      const left = Math.max(2, Math.min(96, baseLeft + jitter));
 
-      const duration = 8.5 + ((i * 3) % 6.5); // 8.5s to 15s
-      const delay = -1 * ((i * 1.3) % 11); // negative delay starts animation midway so petals are immediately falling!
-      const size = 13 + ((i * 4) % 10); // 13px to 23px
+      const duration = 9 + ((i * 3.5) % 7); // 9s to 16s
+      const delay = -1 * ((i * 1.5) % 12); // negative delay starts animation midway
+      const size = 12 + ((i * 4) % 11); // 12px to 23px
       const type = flowerTypes[i % flowerTypes.length];
       const animClass = animClasses[i % animClasses.length];
 
@@ -63,7 +61,7 @@ export const FloralPetals: React.FC<FloralPetalsProps> = ({ isActive = true }) =
 
   return (
     <div
-      className="absolute inset-0 overflow-hidden pointer-events-none z-10 select-none"
+      className="absolute inset-0 pointer-events-none overflow-hidden select-none z-20"
       aria-hidden="true"
     >
       {petals.map((petal) => (
@@ -75,125 +73,91 @@ export const FloralPetals: React.FC<FloralPetalsProps> = ({ isActive = true }) =
             animationDuration: `${petal.duration}s`,
             animationDelay: `${petal.delay}s`,
             width: `${petal.size}px`,
-            height: `${Math.round(petal.size * 1.25)}px`,
+            height: `${petal.size * 1.3}px`,
           }}
         >
-          {petal.type === 'rose' && (
-            /* Traditional Red/Crimson Velvet Rose Petal (Gulabi Pankhudi) */
-            <svg
-              viewBox="0 0 24 30"
-              className="w-full h-full drop-shadow-[0_2px_4px_rgba(122,27,40,0.25)]"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+          {/* Cherry Blossom Petal (Soft Pink) */}
+          {petal.type === 'cherry-blossom' && (
+            <svg viewBox="0 0 24 32" className="w-full h-full drop-shadow-sm opacity-85">
               <defs>
-                <linearGradient id={`roseGrad-${petal.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#8A1325" />
-                  <stop offset="45%" stopColor="#B31D34" />
-                  <stop offset="100%" stopColor="#D9384E" />
+                <linearGradient id={`sakuraGrad-${petal.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FFF0F5" />
+                  <stop offset="50%" stopColor="#F4C8D7" />
+                  <stop offset="100%" stopColor="#E599B2" />
                 </linearGradient>
               </defs>
               <path
-                d="M12 2C6 2 2 8 2 16C2 23 7 28 12 29C17 28 22 23 22 16C22 8 18 2 12 2Z"
-                fill={`url(#roseGrad-${petal.id})`}
-              />
-              {/* Subtle central petal vein */}
-              <path
-                d="M12 5C12 12 12 21 12 26"
-                stroke="#F28E9B"
-                strokeWidth="0.75"
-                strokeLinecap="round"
-                opacity="0.5"
-              />
-            </svg>
-          )}
-
-          {petal.type === 'marigold' && (
-            /* Traditional Saffron Orange Marigold Petal (Kesari Genda) */
-            <svg
-              viewBox="0 0 24 28"
-              className="w-full h-full drop-shadow-[0_2px_4px_rgba(217,119,6,0.25)]"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id={`marigoldGrad-${petal.id}`} x1="0%" y1="0%" x2="80%" y2="100%">
-                  <stop offset="0%" stopColor="#D97706" />
-                  <stop offset="50%" stopColor="#EA580C" />
-                  <stop offset="100%" stopColor="#F59E0B" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M12 1.5C7.5 1.5 3 6.5 3 14C3 21 7 26.5 12 27.5C17 26.5 21 21 21 14C21 6.5 16.5 1.5 12 1.5Z"
-                fill={`url(#marigoldGrad-${petal.id})`}
+                d="M 12 1 C 5 7 1 18 6 27 C 11 31 16 31 20 25 C 24 16 19 6 12 1 Z"
+                fill={`url(#sakuraGrad-${petal.id})`}
               />
               <path
-                d="M12 4C12 11 11.5 20 12 25"
-                stroke="#FDE68A"
-                strokeWidth="0.8"
-                strokeLinecap="round"
+                d="M 12 3 Q 12 18 14 26"
+                stroke="#D68095"
+                strokeWidth="0.6"
+                fill="none"
                 opacity="0.6"
               />
             </svg>
           )}
 
-          {petal.type === 'marigold-yellow' && (
-            /* Bright Yellow Marigold Petal (Pivla Zendu) */
-            <svg
-              viewBox="0 0 22 26"
-              className="w-full h-full drop-shadow-[0_2px_4px_rgba(234,179,8,0.25)]"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+          {/* Deep Cherry Petal */}
+          {petal.type === 'cherry-deep' && (
+            <svg viewBox="0 0 24 32" className="w-full h-full drop-shadow-sm opacity-80">
               <defs>
-                <linearGradient id={`yellowGrad-${petal.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#EAB308" />
-                  <stop offset="50%" stopColor="#FACC15" />
-                  <stop offset="100%" stopColor="#FDE047" />
+                <linearGradient id={`sakuraDeep-${petal.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FCE7F0" />
+                  <stop offset="60%" stopColor="#E896B0" />
+                  <stop offset="100%" stopColor="#C95B7E" />
                 </linearGradient>
               </defs>
               <path
-                d="M11 2C6.8 2 2.5 7 2.5 13.5C2.5 19.5 6.5 24.5 11 25.5C15.5 24.5 19.5 19.5 19.5 13.5C19.5 7 15.2 2 11 2Z"
-                fill={`url(#yellowGrad-${petal.id})`}
-              />
-              <path
-                d="M11 4C11 11 11 18 11 23"
-                stroke="#FEF08A"
-                strokeWidth="0.75"
-                strokeLinecap="round"
-                opacity="0.7"
+                d="M 12 1 C 4 8 2 20 7 28 C 12 32 17 31 21 24 C 23 15 18 5 12 1 Z"
+                fill={`url(#sakuraDeep-${petal.id})`}
               />
             </svg>
           )}
 
-          {petal.type === 'jasmine' && (
-            /* Fragrant Auspicious White Jasmine / Mogra Petal */
-            <svg
-              viewBox="0 0 20 26"
-              className="w-full h-full drop-shadow-[0_2px_4px_rgba(180,160,120,0.2)]"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+          {/* Rose Blush Petal */}
+          {petal.type === 'rose-blush' && (
+            <svg viewBox="0 0 26 30" className="w-full h-full drop-shadow-sm opacity-85">
               <defs>
-                <linearGradient id={`jasmineGrad-${petal.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FEF9EE" />
-                  <stop offset="60%" stopColor="#FFFDF7" />
-                  <stop offset="100%" stopColor="#F4ECE1" />
+                <linearGradient id={`roseBlush-${petal.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FFF5F8" />
+                  <stop offset="45%" stopColor="#F8BBD0" />
+                  <stop offset="100%" stopColor="#E91E63" stopOpacity="0.7" />
                 </linearGradient>
               </defs>
               <path
-                d="M10 2C6 2 2 7 2 13.5C2 19 6 24 10 25C14 24 18 19 18 13.5C18 7 14 2 10 2Z"
-                fill={`url(#jasmineGrad-${petal.id})`}
-                stroke="#EADBBD"
-                strokeWidth="0.5"
+                d="M 13 2 C 7 7 2 16 5 24 C 9 29 17 29 21 24 C 24 16 19 7 13 2 Z"
+                fill={`url(#roseBlush-${petal.id})`}
               />
-              <path
-                d="M10 5C10 11 10 18 10 22"
-                stroke="#D4AF37"
-                strokeWidth="0.6"
-                strokeLinecap="round"
-                opacity="0.4"
-              />
+            </svg>
+          )}
+
+          {/* White Jasmine Blossom */}
+          {petal.type === 'jasmine-white' && (
+            <svg viewBox="0 0 24 24" className="w-full h-full drop-shadow-sm opacity-90">
+              <defs>
+                <radialGradient id={`jasmineGrad-${petal.id}`} cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#FFFDF5" />
+                  <stop offset="60%" stopColor="#FFFFFF" />
+                  <stop offset="100%" stopColor="#E8DFD5" />
+                </radialGradient>
+              </defs>
+              <g transform="translate(12, 12)">
+                {[0, 72, 144, 216, 288].map((deg, idx) => (
+                  <ellipse
+                    key={idx}
+                    cx="0"
+                    cy="-6"
+                    rx="3.2"
+                    ry="6.5"
+                    fill={`url(#jasmineGrad-${petal.id})`}
+                    transform={`rotate(${deg})`}
+                  />
+                ))}
+                <circle cx="0" cy="0" r="2.2" fill="#FFEAA7" />
+              </g>
             </svg>
           )}
         </div>

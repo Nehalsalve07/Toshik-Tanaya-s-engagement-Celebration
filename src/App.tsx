@@ -23,7 +23,7 @@ export default function App() {
   const [petalsActive, setPetalsActive] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#2D2421] selection:bg-[#E8C574] selection:text-[#3B1910] font-sans">
+    <div className="min-h-screen bg-[#10152F] text-[#FFF5E9] selection:bg-[#D8C19A] selection:text-[#10152F] font-sans">
       {/* Top Header & Hero Zone with Indian Festive Floral Shower */}
       <div className="relative overflow-hidden">
         {/* Subtle festive floral petal falling animation effect across header and hero section */}

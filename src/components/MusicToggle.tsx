@@ -176,18 +176,18 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
   });
 
   return (
-    <div className="fixed bottom-6 left-6 z-40 flex items-center gap-2">
-      {/* Track Selection Popover */}
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] left-3 sm:left-6 z-40 flex items-center gap-2">
+      {/* Track Selection Popover in Warm Ivory */}
       {showTrackMenu && (
-        <div className="absolute bottom-16 left-0 bg-[#FAF7F2] border-2 border-[#D4AF37] rounded-2xl p-3 shadow-2xl backdrop-blur-md min-w-[310px] sm:min-w-[360px] max-h-[82vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-2 duration-200">
-          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#E8DFC8] px-1">
+        <div className="absolute bottom-14 left-0 bg-[#FFF5E9] text-[#342044] border-2 border-[#D8C19A] rounded-2xl p-3 shadow-2xl backdrop-blur-md w-[calc(100vw-1.5rem)] sm:w-[360px] max-w-[360px] max-h-[75vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-[#D8C19A]/40 px-1">
             <div className="flex items-center gap-1.5">
-              <Music2 className="w-4 h-4 text-[#AA820A]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#7A1B28]">
+              <Music2 className="w-4 h-4 text-[#A88B58]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#342044] font-montserrat">
                 Select Song / Music
               </span>
             </div>
-            <span className="text-[10px] font-semibold text-[#AA820A] bg-[#FAF3DE] px-2 py-0.5 rounded-full border border-[#EADBBD]">
+            <span className="text-[10px] font-semibold text-[#342044] bg-white px-2 py-0.5 rounded-full border border-[#D8C19A]">
               विवाह मंगल संगीत
             </span>
           </div>
@@ -203,18 +203,18 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
               id="audio-file-selector"
             />
             {customTrackName ? (
-              <div className="flex items-center justify-between gap-2 p-2 bg-[#FAF3DE] border border-[#D4AF37] rounded-xl text-xs">
+              <div className="flex items-center justify-between gap-2 p-2 bg-white border border-[#D8C19A] rounded-xl text-xs">
                 <div className="flex items-center gap-2 truncate">
                   <span className="text-base">🎵</span>
                   <div className="truncate text-left">
-                    <p className="font-semibold text-[#7A1B28] truncate">{customTrackName}</p>
-                    <p className="text-[10px] text-[#8A7A75]">Custom uploaded song</p>
+                    <p className="font-semibold text-[#342044] truncate">{customTrackName}</p>
+                    <p className="text-[10px] text-[#73526E]">Custom uploaded song</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-2 py-1 text-[11px] font-semibold text-[#7A1B28] bg-white hover:bg-[#F3ECE1] border border-[#D4AF37]/50 rounded-lg shadow-xs transition-all cursor-pointer"
+                    className="px-2 py-1 text-[11px] font-semibold text-[#342044] bg-[#FFF8EF] hover:bg-white border border-[#D8C19A] rounded-lg shadow-xs transition-all cursor-pointer"
                   >
                     Change
                   </button>
@@ -231,9 +231,9 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
             ) : (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs font-semibold text-[#7A1B28] bg-white hover:bg-[#FAF3DE] border border-dashed border-[#D4AF37] rounded-xl shadow-sm transition-all cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs font-semibold text-[#342044] bg-white hover:bg-[#FFF8EF] border border-dashed border-[#D8C19A] rounded-xl shadow-sm transition-all cursor-pointer"
               >
-                <Upload className="w-3.5 h-3.5 text-[#AA820A]" />
+                <Upload className="w-3.5 h-3.5 text-[#A88B58]" />
                 <span>Upload Custom Audio Song (MP3 / Audio)</span>
               </button>
             )}
@@ -242,11 +242,11 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
           {/* Track List with individual Delete Options */}
           <div className="space-y-1.5">
             {visibleTrackKeys.length === 0 ? (
-              <div className="p-4 text-center text-xs text-[#8A7A75]">
+              <div className="p-4 text-center text-xs text-[#73526E]">
                 <p>All preset songs have been removed.</p>
                 <button
                   onClick={handleRestoreAll}
-                  className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#7A1B28] bg-[#FAF3DE] hover:bg-[#F0E5C8] border border-[#D4AF37] rounded-lg cursor-pointer"
+                  className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#342044] bg-white hover:bg-[#FFF8EF] border border-[#D8C19A] rounded-lg cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Restore all songs</span>
@@ -266,8 +266,8 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                       onClick={(e) => handleSelectTrack(t, e)}
                       className={`flex-1 text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#7A1B28] text-white font-medium shadow-md ring-1 ring-[#D4AF37]'
-                          : 'text-[#4A3E3D] hover:bg-[#F3ECE1] border border-transparent hover:border-[#E8DFC8]'
+                          ? 'bg-[#342044] text-white font-medium shadow-md ring-1 ring-[#D8C19A]'
+                          : 'text-[#342044] hover:bg-white border border-transparent hover:border-[#D8C19A]/50'
                       }`}
                     >
                       <div className="flex items-start gap-2.5">
@@ -279,8 +279,8 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                               <span
                                 className={`text-[9px] px-1.5 py-0.2 rounded font-bold ${
                                   isSelected
-                                    ? 'bg-[#F5C042] text-[#58121C]'
-                                    : 'bg-[#FAF3DE] text-[#7A1B28] border border-[#D4AF37]/40'
+                                    ? 'bg-[#D8C19A] text-[#10152F]'
+                                    : 'bg-white text-[#73526E] border border-[#D8C19A]/50'
                                 }`}
                               >
                                 {t === 'love_piano' ? 'Love Music' : 'Song'}
@@ -289,14 +289,14 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                           </div>
                           <p
                             className={`text-[11px] font-serif ${
-                              isSelected ? 'text-[#F5C042]' : 'text-[#7A1B28]'
+                              isSelected ? 'text-[#FFEAA7]' : 'text-[#73526E]'
                             }`}
                           >
                             {info.hindi}
                           </p>
                           <p
                             className={`text-[10px] leading-tight mt-0.5 ${
-                              isSelected ? 'text-white/80' : 'text-[#8A7A75]'
+                              isSelected ? 'text-white/80' : 'text-[#73526E]/80'
                             }`}
                           >
                             {info.desc}
@@ -304,7 +304,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                         </div>
                       </div>
                       {isSelected && (
-                        <span className="text-[10px] bg-[#F5C042] text-[#58121C] font-bold px-2 py-0.5 rounded-full shrink-0 shadow-sm ml-1.5">
+                        <span className="text-[10px] bg-[#D8C19A] text-[#10152F] font-bold px-2 py-0.5 rounded-full shrink-0 shadow-sm ml-1.5">
                           Playing
                         </span>
                       )}
@@ -316,7 +316,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
                       onClick={(e) => handleDeleteTrack(t, e)}
                       title={`Delete "${info.name}"`}
                       aria-label={`Delete option for ${info.name}`}
-                      className="p-2 text-[#9E8B85] hover:text-red-600 hover:bg-red-50 rounded-xl transition-all cursor-pointer border border-transparent hover:border-red-200 shrink-0"
+                      className="p-2 text-[#73526E] hover:text-red-600 hover:bg-red-50 rounded-xl transition-all cursor-pointer border border-transparent hover:border-red-200 shrink-0"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -328,11 +328,11 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
 
           {/* Restore Deleted Songs Bar if any tracks were deleted */}
           {deletedTracks.length > 0 && (
-            <div className="mt-2.5 pt-2 border-t border-[#E8DFC8] flex items-center justify-between text-[11px] text-[#8A7A75] px-1">
+            <div className="mt-2.5 pt-2 border-t border-[#D8C19A]/40 flex items-center justify-between text-[11px] text-[#73526E] px-1">
               <span>{deletedTracks.length} song{deletedTracks.length > 1 ? 's' : ''} deleted</span>
               <button
                 onClick={handleRestoreAll}
-                className="inline-flex items-center gap-1 text-[#7A1B28] hover:text-[#58121C] font-semibold hover:underline cursor-pointer"
+                className="inline-flex items-center gap-1 text-[#342044] hover:text-[#10152F] font-semibold hover:underline cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Restore deleted songs</span>
@@ -342,13 +342,13 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
         </div>
       )}
 
-      {/* Button 1: Main Indian Song Audio Toggle Button (ultra-compact & short) */}
+      {/* Button 1: Main Audio Toggle Button (midnight navy and gold) */}
       <button
         onClick={toggleMusic}
-        className={`group flex items-center gap-1.5 h-8 px-2.5 rounded-full shadow-md border transition-all cursor-pointer ${
+        className={`group flex items-center gap-1.5 h-8 px-3 rounded-full shadow-lg border transition-all cursor-pointer ${
           isPlaying
-            ? 'bg-[#7A1B28] text-white border-[#D4AF37] ring-1 ring-[#D4AF37]/50 shadow-[#7A1B28]/25'
-            : 'bg-white/95 hover:bg-[#FAF7F2] text-[#7A1B28] border-[#D4AF37] hover:border-[#AA820A] shadow-xs hover:scale-105 active:scale-95'
+            ? 'bg-[#342044] text-[#FFEAA7] border-[#D8C19A] ring-1 ring-[#D8C19A]/50'
+            : 'bg-[#10152F]/90 hover:bg-[#161B3D] text-[#FFF5E9] border-[#D8C19A]/60 hover:border-[#D8C19A] shadow-md hover:scale-105 active:scale-95'
         }`}
         title={
           isPlaying
@@ -359,31 +359,30 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
       >
         {isPlaying ? (
           <>
-            {/* Live animated sound equalizer bars */}
             <div className="flex items-center gap-0.5 h-2.5">
-              <span className="w-0.5 bg-[#F5C042] h-1.5 animate-pulse rounded-full" />
-              <span className="w-0.5 bg-[#F5C042] h-2.5 animate-bounce rounded-full" />
-              <span className="w-0.5 bg-[#F5C042] h-1.5 animate-pulse rounded-full" />
+              <span className="w-0.5 bg-[#FFEAA7] h-1.5 animate-pulse rounded-full" />
+              <span className="w-0.5 bg-[#FFEAA7] h-2.5 animate-bounce rounded-full" />
+              <span className="w-0.5 bg-[#FFEAA7] h-1.5 animate-pulse rounded-full" />
             </div>
-            <Volume2 className="w-3.5 h-3.5 text-[#F5C042] shrink-0" />
-            <span className="text-[11px] font-bold tracking-tight text-white">
+            <Volume2 className="w-3.5 h-3.5 text-[#FFEAA7] shrink-0" />
+            <span className="text-[11px] font-bold tracking-tight text-[#FFF5E9] font-montserrat">
               Music
             </span>
           </>
         ) : (
           <>
-            <VolumeX className="w-3.5 h-3.5 text-[#7A1B28] shrink-0" />
-            <span className="text-[11px] font-bold text-[#7A1B28] tracking-tight">
+            <VolumeX className="w-3.5 h-3.5 text-[#D8C19A] shrink-0" />
+            <span className="text-[11px] font-bold text-[#FFF5E9] tracking-tight font-montserrat">
               Music
             </span>
           </>
         )}
       </button>
 
-      {/* Button 2: Track switcher button (compact 32x32) */}
+      {/* Button 2: Track switcher button */}
       <button
         onClick={() => setShowTrackMenu(!showTrackMenu)}
-        className="h-8 w-8 flex items-center justify-center rounded-full bg-white/95 border border-[#D4AF37] text-[#7A1B28] hover:bg-[#FAF7F2] shadow-xs transition-all cursor-pointer hover:border-[#AA820A] shrink-0"
+        className="h-8 w-8 flex items-center justify-center rounded-full bg-[#10152F]/90 border border-[#D8C19A]/60 text-[#D8C19A] hover:text-[#FFF5E9] hover:bg-[#161B3D] shadow-md transition-all cursor-pointer shrink-0"
         title="Choose Song / Melody (Love Piano, Natarang, Shehnai, Upload MP3, Delete songs)"
         aria-label="Change song or open music menu"
       >
