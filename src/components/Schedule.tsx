@@ -127,8 +127,8 @@ export const Schedule: React.FC = () => {
                         {event.title}
                       </h3>
                       {event.marathiTitle && (
-                        <p className="text-xs font-semibold text-[#73526E] font-serif">
-                          {event.marathiTitle}
+                        <p className="text-xs font-semibold text-[#8C6D15] font-montserrat tracking-wider uppercase">
+                          ✦ {event.marathiTitle} ✦
                         </p>
                       )}
                     </div>

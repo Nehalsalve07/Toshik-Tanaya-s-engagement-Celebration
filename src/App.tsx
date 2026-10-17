@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FloralPetals } from './components/FloralPetals';
@@ -12,10 +12,16 @@ import { Schedule } from './components/Schedule';
 import { VenueSection } from './components/VenueSection';
 import { GallerySection } from './components/GallerySection';
 import { WishesWall } from './components/WishesWall';
-import { InvitationCardModal } from './components/InvitationCardModal';
-import { QrShareModal } from './components/QrShareModal';
 import { MusicToggle } from './components/MusicToggle';
 import { Footer } from './components/Footer';
+
+// Code-split heavy interactive modals for ultra-fast initial page load
+const InvitationCardModal = React.lazy(() =>
+  import('./components/InvitationCardModal').then((m) => ({ default: m.InvitationCardModal }))
+);
+const QrShareModal = React.lazy(() =>
+  import('./components/QrShareModal').then((m) => ({ default: m.QrShareModal }))
+);
 
 export default function App() {
   const [isCardModalOpen, setIsCardModalOpen] = useState(false);
@@ -26,7 +32,7 @@ export default function App() {
     <div className="min-h-screen bg-[#10152F] text-[#FFF5E9] selection:bg-[#D8C19A] selection:text-[#10152F] font-sans">
       {/* Top Header & Hero Zone with Indian Festive Floral Shower */}
       <div className="relative overflow-hidden">
-        {/* Subtle festive floral petal falling animation effect across header and hero section */}
+        {/* Optimized GPU-accelerated floral petal falling animation */}
         <FloralPetals isActive={petalsActive} />
 
         {/* Top Navigation */}
@@ -72,18 +78,26 @@ export default function App() {
         onTogglePetals={() => setPetalsActive(!petalsActive)}
       />
 
-      {/* Traditional Wedding / Engagement Card Modal */}
-      <InvitationCardModal
-        isOpen={isCardModalOpen}
-        onClose={() => setIsCardModalOpen(false)}
-        onOpenQrModal={() => setIsQrModalOpen(true)}
-      />
+      {/* Traditional Wedding / Engagement Card Modal (Lazy loaded) */}
+      <Suspense fallback={null}>
+        {isCardModalOpen && (
+          <InvitationCardModal
+            isOpen={isCardModalOpen}
+            onClose={() => setIsCardModalOpen(false)}
+            onOpenQrModal={() => setIsQrModalOpen(true)}
+          />
+        )}
+      </Suspense>
 
-      {/* Unique QR Code Share & Download Modal */}
-      <QrShareModal
-        isOpen={isQrModalOpen}
-        onClose={() => setIsQrModalOpen(false)}
-      />
+      {/* Unique QR Code Share & Download Modal (Lazy loaded) */}
+      <Suspense fallback={null}>
+        {isQrModalOpen && (
+          <QrShareModal
+            isOpen={isQrModalOpen}
+            onClose={() => setIsQrModalOpen(false)}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }
