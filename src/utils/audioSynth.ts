@@ -1,5 +1,7 @@
 // Dedicated Audio Player for "Sahiba" (Jasleen Royal & Stebin Ben)
-// Autoplays on website open with smooth fallback for browser autoplay policies and full mute/unmute control.
+// Bundles audio through Vite asset pipeline for seamless GitHub Pages / production live deployments.
+
+import sahibaAudioTrack from '../assets/audio/sahiba.mp3';
 
 class SahibaAudioPlayer {
   private audioElement: HTMLAudioElement | null = null;
@@ -9,9 +11,15 @@ class SahibaAudioPlayer {
   private initialized: boolean = false;
 
   private getAudioSrc(): string {
+    // 1. Primary: Use the bundled Vite asset URL (guaranteed to resolve on GitHub Pages subpaths)
+    if (sahibaAudioTrack) {
+      return sahibaAudioTrack;
+    }
+
+    // 2. Fallback: Base URL relative path
     const baseUrl = typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL
       ? (import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`)
-      : '/';
+      : './';
     return `${baseUrl}audio/sahiba.mp3`;
   }
 
@@ -40,6 +48,15 @@ class SahibaAudioPlayer {
         if (this.audioElement) {
           this.isMutedState = this.audioElement.muted || this.audioElement.volume === 0;
           this.notify();
+        }
+      });
+
+      // Handle potential loading errors by trying fallback relative path
+      this.audioElement.addEventListener('error', () => {
+        console.warn('Primary audio source failed, attempting fallback relative path');
+        if (this.audioElement && this.audioElement.src !== './audio/sahiba.mp3') {
+          this.audioElement.src = './audio/sahiba.mp3';
+          this.audioElement.load();
         }
       });
     } catch (e) {
@@ -93,12 +110,10 @@ class SahibaAudioPlayer {
     if (!this.audioElement) return false;
 
     if (!this.isPlaying) {
-      // If currently stopped, start playback
       this.play();
-      return false; // not muted
+      return false;
     }
 
-    // If currently playing, toggle mute
     this.isMutedState = !this.isMutedState;
     this.audioElement.muted = this.isMutedState;
     this.notify();
@@ -133,5 +148,4 @@ class SahibaAudioPlayer {
 
 export const musicPlayer = new SahibaAudioPlayer();
 
-// Backwards compatibility types if needed by other components
 export type IndianRagaType = 'sahiba';

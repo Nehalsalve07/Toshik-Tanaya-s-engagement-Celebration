@@ -1,4 +1,5 @@
 import React from 'react';
+import toshikTanayaCoupleImg from '../assets/images/toshik_tanaya_couple_illustration_1792171576214.jpg';
 
 export const CoupleIllustration: React.FC = () => {
   return (
@@ -6,7 +7,7 @@ export const CoupleIllustration: React.FC = () => {
       {/* Main Couple Illustration matching the poster attire */}
       <div className="relative w-full overflow-hidden rounded-2xl group">
         <img
-          src="/src/assets/images/toshik_tanaya_couple_illustration_1792171576214.jpg"
+          src={toshikTanayaCoupleImg}
           alt="Toshik & Tanaya Engagement Couple Illustration"
           className="w-full h-auto object-contain mix-blend-multiply drop-shadow-sm transition-transform duration-700 hover:scale-[1.02]"
           referrerPolicy="no-referrer"
