@@ -1,14 +1,14 @@
 import React from 'react';
-import toshikTanayaCoupleImg from '../assets/images/toshik_tanaya_couple_illustration_1792171576214.jpg';
+import toshikTanayaCoupleImg from '../assets/images/toshik_tanaya_exact_attached_couple_1792254953173.jpg';
 
 export const CoupleIllustration: React.FC = () => {
   return (
-    <div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] mx-auto flex flex-col items-center select-none">
-      {/* Main Couple Illustration matching the poster attire */}
+    <div className="relative w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px] mx-auto flex flex-col items-center select-none">
+      {/* Main Couple Illustration matching the uploaded gold lehenga & black bandhgala attire */}
       <div className="relative w-full overflow-hidden rounded-2xl group">
         <img
           src={toshikTanayaCoupleImg}
-          alt="Toshik & Tanaya Engagement Couple Illustration"
+          alt="Toshik & Tanaya Engagement Couple in Royal Gold Lehenga & Midnight Bandhgala"
           className="w-full h-auto object-contain mix-blend-multiply drop-shadow-sm transition-transform duration-700 hover:scale-[1.02]"
           referrerPolicy="no-referrer"
           loading="eager"

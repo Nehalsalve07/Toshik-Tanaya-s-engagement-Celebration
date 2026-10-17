@@ -35,13 +35,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCardModal }) => {
       <div className="relative z-10 max-w-5xl mx-auto px-3 sm:px-6 w-full flex-1 flex flex-col items-center justify-center">
         {/* Sacred Sanskrit Invocation Header */}
         <div className="text-center mb-4 sm:mb-6 md:mb-8 space-y-1 animate-fadeIn">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 text-[11px] sm:text-xs font-semibold tracking-wider text-[#D8C19A] bg-[#10152F]/80 border border-[#D8C19A]/40 rounded-full shadow-lg backdrop-blur-md">
-            <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#FFEAA7]" />
+          <div className="inline-flex items-center justify-center px-4 py-1 text-xs sm:text-sm font-semibold tracking-widest text-[#D8C19A] bg-[#10152F]/80 border border-[#D8C19A]/40 rounded-full shadow-lg backdrop-blur-md">
             <span className="font-serif">॥ श्री गणेशाय नमः ॥</span>
-            <span className="text-[#D8C19A]/50">·</span>
-            <span className="text-[#FFF5E9]/90 tracking-widest text-[10px] sm:text-[11px] uppercase">
-              Shubha Sakharpuda
-            </span>
           </div>
         </div>
 

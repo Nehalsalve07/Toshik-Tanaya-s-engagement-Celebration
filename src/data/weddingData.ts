@@ -18,7 +18,7 @@ export const WEDDING_SCHEDULE: ScheduleEvent[] = [
   {
     id: "ring-exchange",
     title: "Sacred Engagement & Ring Exchange Ceremony",
-    marathiTitle: "साखरपुडा व अंगठी बदल सोहळा (Ring Ceremony)",
+    marathiTitle: "Ring Ceremony",
     date: "Tuesday, 10 November 2026",
     time: "4:30 PM Sharp",
     location: "Floral Celebration Stage, Aditya Villa",
