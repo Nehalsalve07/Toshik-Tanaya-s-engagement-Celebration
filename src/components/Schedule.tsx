@@ -7,8 +7,8 @@ export const Schedule: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'rituals' | 'celebration'>('all');
 
   const filteredEvents = WEDDING_SCHEDULE.filter((event) => {
-    if (selectedCategory === 'rituals') return event.id === 'sakharpuda-ceremony' || event.id === 'ring-exchange';
-    if (selectedCategory === 'celebration') return event.id === 'guest-swagat' || event.id === 'cake-music' || event.id === 'reception-banquet';
+    if (selectedCategory === 'rituals') return event.id === 'ring-exchange';
+    if (selectedCategory === 'celebration') return event.id === 'cake-music' || event.id === 'reception-banquet';
     return true;
   });
 
@@ -40,42 +40,44 @@ export const Schedule: React.FC = () => {
             Engagement Schedule & Muhurats
           </h2>
           <p className="font-cormorant text-xs sm:text-base text-[#D8C19A]/90 leading-relaxed">
-            Tuesday, 10 November 2026 · Auspicious Sakharpuda, Ring Exchange & Gala Reception at Aditya Villa.
+            Tuesday, 10 November 2026 · Auspicious Ring Exchange, Music & Gala Reception at Aditya Villa.
           </p>
 
-          {/* Interactive Filter Tabs - Mobile wrap friendly */}
-          <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 bg-[#10152F]/80 border border-[#D8C19A]/40 rounded-2xl mt-4 backdrop-blur-sm max-w-full">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`min-h-[38px] px-3 sm:px-4 py-1.5 text-xs font-montserrat font-semibold rounded-xl transition-all cursor-pointer touch-manipulation ${
-                selectedCategory === 'all'
-                  ? 'bg-[#D8C19A] text-[#10152F] shadow-md'
-                  : 'text-[#FFF5E9]/80 hover:text-[#FFF5E9]'
-              }`}
-            >
-              All Ceremonies ({WEDDING_SCHEDULE.length})
-            </button>
-            <button
-              onClick={() => setSelectedCategory('rituals')}
-              className={`min-h-[38px] px-3 sm:px-4 py-1.5 text-xs font-montserrat font-semibold rounded-xl transition-all cursor-pointer touch-manipulation ${
-                selectedCategory === 'rituals'
-                  ? 'bg-[#D8C19A] text-[#10152F] shadow-md'
-                  : 'text-[#FFF5E9]/80 hover:text-[#FFF5E9]'
-              }`}
-            >
-              Sakharpuda & Ring Muhurat
-            </button>
-            <button
-              onClick={() => setSelectedCategory('celebration')}
-              className={`min-h-[38px] px-3 sm:px-4 py-1.5 text-xs font-montserrat font-semibold rounded-xl transition-all cursor-pointer touch-manipulation ${
-                selectedCategory === 'celebration'
-                  ? 'bg-[#D8C19A] text-[#10152F] shadow-md'
-                  : 'text-[#FFF5E9]/80 hover:text-[#FFF5E9]'
-              }`}
-            >
-              Celebration & Dinner
-            </button>
-          </div>
+          {/* Interactive Filter Tabs (Shown only if multiple events exist) */}
+          {WEDDING_SCHEDULE.length > 1 && (
+            <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 bg-[#10152F]/80 border border-[#D8C19A]/40 rounded-2xl mt-4 backdrop-blur-sm max-w-full">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`min-h-[38px] px-3 sm:px-4 py-1.5 text-xs font-montserrat font-semibold rounded-xl transition-all cursor-pointer touch-manipulation ${
+                  selectedCategory === 'all'
+                    ? 'bg-[#D8C19A] text-[#10152F] shadow-md'
+                    : 'text-[#FFF5E9]/80 hover:text-[#FFF5E9]'
+                }`}
+              >
+                All Events ({WEDDING_SCHEDULE.length})
+              </button>
+              <button
+                onClick={() => setSelectedCategory('rituals')}
+                className={`min-h-[38px] px-3 sm:px-4 py-1.5 text-xs font-montserrat font-semibold rounded-xl transition-all cursor-pointer touch-manipulation ${
+                  selectedCategory === 'rituals'
+                    ? 'bg-[#D8C19A] text-[#10152F] shadow-md'
+                    : 'text-[#FFF5E9]/80 hover:text-[#FFF5E9]'
+                }`}
+              >
+                Ring Ceremony Muhurat
+              </button>
+              <button
+                onClick={() => setSelectedCategory('celebration')}
+                className={`min-h-[38px] px-3 sm:px-4 py-1.5 text-xs font-montserrat font-semibold rounded-xl transition-all cursor-pointer touch-manipulation ${
+                  selectedCategory === 'celebration'
+                    ? 'bg-[#D8C19A] text-[#10152F] shadow-md'
+                    : 'text-[#FFF5E9]/80 hover:text-[#FFF5E9]'
+                }`}
+              >
+                Celebration & Dinner
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Timeline Events List in Ivory Cards */}

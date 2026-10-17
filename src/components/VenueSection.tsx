@@ -155,8 +155,8 @@ export const VenueSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 3 Travel Modes Guide */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* 3 Travel Modes Guide (Hidden on mobile screens, shown on tablet/desktop) */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6">
           <div className="bg-[#161B3D]/80 text-[#FFF5E9] border border-[#D8C19A]/30 rounded-2xl p-6 shadow-md backdrop-blur-sm">
             <div className="w-10 h-10 rounded-xl bg-[#21183F] border border-[#D8C19A]/40 flex items-center justify-center text-[#FFEAA7] mb-4">
               <Plane className="w-5 h-5 text-[#FFEAA7]" />
