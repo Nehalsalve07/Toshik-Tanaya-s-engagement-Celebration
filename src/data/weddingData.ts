@@ -1,13 +1,13 @@
 import { ScheduleEvent, GalleryPhoto, GuestWish } from '../types/wedding';
-import heroCoupleImg from '../assets/images/wedding_hero_couple_1791899469399.jpg';
+import heroCoupleImg from '../assets/images/1.jpg';
 import venueVillaImg from '../assets/images/wedding_venue_villa_1791899471794.jpg';
 import ringTrayImg from '../assets/images/engagement_ring_tray_1791903387685.jpg';
 import mandapSetupImg from '../assets/images/wedding_mandap_setup_1791899471844.jpg';
 import haldiCelebrationImg from '../assets/images/wedding_haldi_celebration_1791899472126.jpg';
 
 // Attached high-resolution couple photographs
-import villaDanceImg from '../assets/images/couple_outdoor_villa_dance_1792341935871.jpg';
-import redSareeImg from '../assets/images/couple_traditional_red_saree_1792341958121.jpg';
+import villaDanceImg from '../assets/images/1.jpg';
+import redSareeImg from '../assets/images/1.jpg';
 import urbanCandidImg from '../assets/images/couple_urban_candid_flower_1792341979255.jpg';
 import receptionGlamImg from '../assets/images/couple_reception_glam_evening_1792342002676.jpg';
 
@@ -47,7 +47,7 @@ export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
     imageUrl: villaDanceImg,
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Villa Courtyard",
-    likes: 124,
+    likes: 125,
   },
   {
     id: "photo-2",
