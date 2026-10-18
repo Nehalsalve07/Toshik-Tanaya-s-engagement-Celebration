@@ -1,5 +1,5 @@
 // Dedicated Audio Player for "Sahiba" (Jasleen Royal & Stebin Ben)
-// Always plays the song in the background on continuous loop with no mute option.
+// Robust audio handling for GitHub Live, mobile autoplay policies, and reliable playback.
 
 import sahibaAudioTrack from '../assets/audio/sahiba.mp3';
 
@@ -15,11 +15,13 @@ class SahibaAudioPlayer {
       return sahibaAudioTrack;
     }
 
-    // 2. Fallback: Base URL relative path
-    const baseUrl = typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL
-      ? (import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`)
-      : './';
-    return `${baseUrl}audio/sahiba.mp3`;
+    // 2. Fallback relative to current document location for GitHub Pages live hosting
+    if (typeof window !== 'undefined') {
+      const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
+      return `${window.location.origin}${basePath}audio/sahiba.mp3`;
+    }
+
+    return './audio/sahiba.mp3';
   }
 
   public init() {
@@ -30,7 +32,7 @@ class SahibaAudioPlayer {
       const src = this.getAudioSrc();
       this.audioElement = new Audio(src);
       this.audioElement.loop = true;
-      this.audioElement.muted = false; // Always unmuted
+      this.audioElement.muted = false;
       this.audioElement.volume = 0.85;
       this.audioElement.preload = 'auto';
 
@@ -40,17 +42,15 @@ class SahibaAudioPlayer {
       });
 
       this.audioElement.addEventListener('pause', () => {
-        // If something paused it, automatically resume
         this.isPlaying = false;
         this.notify();
       });
 
       this.audioElement.addEventListener('error', () => {
-        console.warn('Primary audio source failed, attempting fallback relative path');
-        if (this.audioElement && this.audioElement.src !== './audio/sahiba.mp3') {
+        console.warn('Primary audio stream encountered an error, attempting fallback source');
+        if (this.audioElement && !this.audioElement.src.includes('public/audio')) {
           this.audioElement.src = './audio/sahiba.mp3';
           this.audioElement.load();
-          this.audioElement.play().catch(() => {});
         }
       });
     } catch (e) {
@@ -75,16 +75,44 @@ class SahibaAudioPlayer {
     if (!this.audioElement) return false;
 
     try {
-      this.audioElement.muted = false; // Guarantee sound is unmuted
+      this.audioElement.muted = false;
       await this.audioElement.play();
       this.isPlaying = true;
       this.notify();
       return true;
     } catch (err) {
+      // Browser autoplay policy prevented unmuted playback prior to user gesture
       console.warn('Autoplay waiting for user gesture:', err);
       this.isPlaying = false;
       this.notify();
       return false;
+    }
+  }
+
+  public pause() {
+    if (this.audioElement) {
+      this.audioElement.pause();
+      this.isPlaying = false;
+      this.notify();
+    }
+  }
+
+  public async toggle(): Promise<boolean> {
+    if (this.isPlaying) {
+      this.pause();
+      return false;
+    } else {
+      return await this.play();
+    }
+  }
+
+  public unlock() {
+    this.init();
+    if (this.audioElement && this.audioElement.paused) {
+      this.audioElement.play().then(() => {
+        this.isPlaying = true;
+        this.notify();
+      }).catch(() => {});
     }
   }
 
@@ -93,11 +121,7 @@ class SahibaAudioPlayer {
   }
 
   public stop() {
-    if (this.audioElement) {
-      this.audioElement.pause();
-      this.isPlaying = false;
-      this.notify();
-    }
+    this.pause();
   }
 }
 

@@ -5,6 +5,12 @@ import ringTrayImg from '../assets/images/engagement_ring_tray_1791903387685.jpg
 import mandapSetupImg from '../assets/images/wedding_mandap_setup_1791899471844.jpg';
 import haldiCelebrationImg from '../assets/images/wedding_haldi_celebration_1791899472126.jpg';
 
+// Attached high-resolution couple photographs
+import villaDanceImg from '../assets/images/couple_outdoor_villa_dance_1792341935871.jpg';
+import redSareeImg from '../assets/images/couple_traditional_red_saree_1792341958121.jpg';
+import urbanCandidImg from '../assets/images/couple_urban_candid_flower_1792341979255.jpg';
+import receptionGlamImg from '../assets/images/couple_reception_glam_evening_1792342002676.jpg';
+
 // Bundled image assets for production & development
 export const IMAGES = {
   heroCouple: heroCoupleImg,
@@ -12,6 +18,10 @@ export const IMAGES = {
   ringTray: ringTrayImg,
   mandapSetup: mandapSetupImg,
   haldiCelebration: haldiCelebrationImg,
+  villaDance: villaDanceImg,
+  redSaree: redSareeImg,
+  urbanCandid: urbanCandidImg,
+  receptionGlam: receptionGlamImg,
 };
 
 export const WEDDING_SCHEDULE: ScheduleEvent[] = [
@@ -31,43 +41,43 @@ export const WEDDING_SCHEDULE: ScheduleEvent[] = [
 export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
   {
     id: "photo-1",
-    title: "Toshik & Tanaya's Betrothal Portrait",
-    caption: "The radiant couple celebrating the beginning of their journey towards forever.",
-    category: "ceremony",
-    imageUrl: IMAGES.heroCouple,
-    uploadedBy: "Karadbhajne & Sarve Families",
-    timestamp: "Engagement Session",
-    likes: 96,
+    title: "Sunlit Courtyard Dance at the Villa",
+    caption: "Toshik & Tanaya sharing a joyful, candid dance under the morning sky at Aditya Villa.",
+    category: "candid",
+    imageUrl: villaDanceImg,
+    uploadedBy: "Toshik & Tanaya",
+    timestamp: "Villa Courtyard",
+    likes: 124,
   },
   {
     id: "photo-2",
-    title: "The Auspicious Rings & Floral Tray",
-    caption: "Sacred engagement rings surrounded by fragrant jasmine and rose petals for the 4:30 PM ceremony.",
+    title: "Sacred Tilak & Saree Ceremony",
+    caption: "Tanaya in rich auspicious red silk and Toshik with ceremonial tilak before the floral ring arch.",
     category: "ceremony",
-    imageUrl: IMAGES.ringTray,
-    uploadedBy: "Jewelry & Ritual Team",
-    timestamp: "Ring Presentation",
-    likes: 114,
+    imageUrl: redSareeImg,
+    uploadedBy: "Karadbhajne & Sarve Families",
+    timestamp: "Auspicious Sakharpuda",
+    likes: 148,
   },
   {
     id: "photo-3",
-    title: "Aditya Villa Decorated for the Engagement",
-    caption: "The illuminated grand villa lawn and floral arches prepared to welcome all beloved guests in Besa-Pipla.",
-    category: "venue",
-    imageUrl: IMAGES.venueVilla,
-    uploadedBy: "Decor Team",
-    timestamp: "Villa Courtyard",
-    likes: 78,
+    title: "A Flower for Forever",
+    caption: "Intimate and tender moments together with sweet smiles and shared laughter.",
+    category: "candid",
+    imageUrl: urbanCandidImg,
+    uploadedBy: "Toshik & Tanaya",
+    timestamp: "Romantic Promenade",
+    likes: 119,
   },
   {
     id: "photo-4",
-    title: "Auspicious Sakharpuda Altar & Diyas",
-    caption: "Traditional brass lamps, holy flowers, and sacred altar setup for the auspicious tilak rites.",
-    category: "ceremony",
-    imageUrl: IMAGES.mandapSetup,
-    uploadedBy: "Family",
-    timestamp: "Altar Setup",
-    likes: 85,
+    title: "Gala Evening Celebration",
+    caption: "Dressed in elegance for the evening celebration amidst warm fairy lights and festivities.",
+    category: "reception",
+    imageUrl: receptionGlamImg,
+    uploadedBy: "Toshik & Tanaya",
+    timestamp: "Evening Soirée",
+    likes: 135,
   },
 ];
 

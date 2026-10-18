@@ -3,7 +3,7 @@ import { Camera, Heart, Download, X, Plus, Filter, Image as ImageIcon, ChevronLe
 import { GalleryPhoto } from '../types/wedding';
 import { INITIAL_GALLERY_PHOTOS } from '../data/weddingData';
 
-const GALLERY_STORAGE_KEY = 'wedding_gallery_toshik_tanaya';
+const GALLERY_STORAGE_KEY = 'wedding_gallery_toshik_tanaya_v4';
 
 export const GallerySection: React.FC = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
@@ -70,13 +70,45 @@ export const GallerySection: React.FC = () => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    if (files.length === 1) {
       const reader = new FileReader();
       reader.onload = (event) => {
         setSelectedImageSrc(event.target?.result as string);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(files[0]);
+    } else {
+      // Multiple original photos selected: load all simultaneously
+      const newItems: GalleryPhoto[] = [];
+      let loaded = 0;
+      Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const cleanName = file.name
+            .replace(/\.[^/.]+$/, '')
+            .replace(/WhatsApp Image \d{4}-\d{2}-\d{2} at /i, 'Cherished Moment ')
+            .replace(/IMG_/i, 'Portrait ');
+          newItems.push({
+            id: `photo-${Date.now()}-${index}`,
+            title: cleanName || 'Toshik & Tanaya',
+            caption: 'Original authentic memory of Toshik & Tanaya.',
+            category: index % 2 === 0 ? 'ceremony' : 'candid',
+            imageUrl: event.target?.result as string,
+            uploadedBy: 'Toshik & Tanaya',
+            timestamp: 'Just now',
+            likes: 120 + index * 10,
+          });
+          loaded++;
+          if (loaded === files.length) {
+            const updated = [...newItems, ...photos];
+            savePhotos(updated);
+            setIsUploadModalOpen(false);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     }
   };
 
@@ -484,9 +516,9 @@ export const GallerySection: React.FC = () => {
                     <input
                       type="file"
                       accept="image/*"
+                      multiple
                       ref={fileInputRef}
                       onChange={handleFileChange}
-                      required
                       className="hidden"
                     />
 
