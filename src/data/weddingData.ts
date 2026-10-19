@@ -1,27 +1,24 @@
 import { ScheduleEvent, GalleryPhoto, GuestWish } from '../types/wedding';
-import heroCoupleImg from '../assets/images/1.jpg';
-import venueVillaImg from '../assets/images/wedding_venue_villa_1791899471794.jpg';
-import ringTrayImg from '../assets/images/engagement_ring_tray_1791903387685.jpg';
-import mandapSetupImg from '../assets/images/wedding_mandap_setup_1791899471844.jpg';
-import haldiCelebrationImg from '../assets/images/wedding_haldi_celebration_1791899472126.jpg';
 
-// Attached high-resolution couple photographs
-import villaDanceImg from '../assets/images/1.jpg';
-import redSareeImg from '../assets/images/1.jpg';
-import urbanCandidImg from '../assets/images/couple_urban_candid_flower_1792341979255.jpg';
-import receptionGlamImg from '../assets/images/couple_reception_glam_evening_1792342002676.jpg';
+// Authentic original photographs uploaded by Toshik & Tanaya
+import villaDanceImg from '../assets/images/WhatsApp Image 2026-10-18 at 9.33.34 PM.jpeg';
+import redSareeImg from '../assets/images/WhatsApp Image 2026-10-18 at 9.58.38 PM.jpeg';
+import urbanCandidImg from '../assets/images/WhatsApp Image 2026-10-18 at 10.08.38 PM.jpeg';
+import galaReceptionImg from '../assets/images/IMG_9428.PNG';
+import ringTrayImg from '../assets/images/engagement_ring_tray_1791903387685.jpg';
+import venueVillaImg from '../assets/images/aditya_villa_celebration_lawn_1792428790628.jpg';
 
 // Bundled image assets for production & development
 export const IMAGES = {
-  heroCouple: heroCoupleImg,
+  heroCouple: redSareeImg,
   venueVilla: venueVillaImg,
   ringTray: ringTrayImg,
-  mandapSetup: mandapSetupImg,
-  haldiCelebration: haldiCelebrationImg,
-  villaDance: villaDanceImg,
-  redSaree: redSareeImg,
-  urbanCandid: urbanCandidImg,
-  receptionGlam: receptionGlamImg,
+  mandapSetup: redSareeImg,
+  haldiCelebration: villaDanceImg,
+  photo1: redSareeImg,
+  photo2: villaDanceImg,
+  photo3: urbanCandidImg,
+  photo4: galaReceptionImg,
 };
 
 export const WEDDING_SCHEDULE: ScheduleEvent[] = [
@@ -41,23 +38,23 @@ export const WEDDING_SCHEDULE: ScheduleEvent[] = [
 export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
   {
     id: "photo-1",
+    title: "Sacred Tilak & Saree Ceremony",
+    caption: "Tanaya in rich auspicious red silk and Toshik with ceremonial tilak before the floral ring arch.",
+    category: "ceremony",
+    imageUrl: redSareeImg,
+    uploadedBy: "Toshik & Tanaya",
+    timestamp: "Auspicious Sakharpuda",
+    likes: 185,
+  },
+  {
+    id: "photo-2",
     title: "Sunlit Courtyard Dance at the Villa",
     caption: "Toshik & Tanaya sharing a joyful, candid dance under the morning sky at Aditya Villa.",
     category: "candid",
     imageUrl: villaDanceImg,
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Villa Courtyard",
-    likes: 125,
-  },
-  {
-    id: "photo-2",
-    title: "Sacred Tilak & Saree Ceremony",
-    caption: "Tanaya in rich auspicious red silk and Toshik with ceremonial tilak before the floral ring arch.",
-    category: "ceremony",
-    imageUrl: redSareeImg,
-    uploadedBy: "Karadbhajne & Sarve Families",
-    timestamp: "Auspicious Sakharpuda",
-    likes: 148,
+    likes: 164,
   },
   {
     id: "photo-3",
@@ -67,17 +64,17 @@ export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
     imageUrl: urbanCandidImg,
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Romantic Promenade",
-    likes: 119,
+    likes: 142,
   },
   {
     id: "photo-4",
     title: "Gala Evening Celebration",
     caption: "Dressed in elegance for the evening celebration amidst warm fairy lights and festivities.",
     category: "reception",
-    imageUrl: receptionGlamImg,
+    imageUrl: galaReceptionImg,
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Evening Soirée",
-    likes: 135,
+    likes: 159,
   },
 ];
 

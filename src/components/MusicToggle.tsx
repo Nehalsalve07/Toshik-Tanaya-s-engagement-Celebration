@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Play } from 'lucide-react';
+import { Volume2, Play } from 'lucide-react';
 import { musicPlayer } from '../utils/audioSynth';
 
 interface MusicToggleProps {
@@ -7,10 +7,7 @@ interface MusicToggleProps {
   onTogglePetals?: () => void;
 }
 
-export const MusicToggle: React.FC<MusicToggleProps> = ({
-  isPetalsActive = true,
-  onTogglePetals,
-}) => {
+export const MusicToggle: React.FC<MusicToggleProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -61,8 +58,8 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
   };
 
   return (
-    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] left-3 sm:left-6 z-40 flex items-center gap-2">
-      {/* Target button: button:nth-of-type(1) inside div:nth-of-type(3) - Toggle Play / Pause with Live Reliability */}
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] left-3 sm:left-6 z-40 flex items-center">
+      {/* Target button: button:nth-of-type(1) inside div:nth-of-type(3) - Toggle Play / Pause */}
       <button
         onClick={handleToggleMusic}
         className={`group flex items-center gap-2 h-9 sm:h-10 px-3.5 sm:px-4 rounded-full shadow-xl border transition-all duration-300 select-none active:scale-95 cursor-pointer touch-manipulation ${
@@ -120,22 +117,6 @@ export const MusicToggle: React.FC<MusicToggleProps> = ({
           </span>
         </div>
       </button>
-
-      {/* Optional Petals Shower Toggle Button */}
-      {onTogglePetals && (
-        <button
-          onClick={onTogglePetals}
-          className={`h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full border transition-all duration-300 shadow-md cursor-pointer touch-manipulation active:scale-95 ${
-            isPetalsActive
-              ? 'bg-[#21183F]/90 text-[#F4C8D7] border-[#D8C19A]/50 hover:bg-[#342044]'
-              : 'bg-[#10152F]/90 text-[#FFF5E9]/50 border-[#D8C19A]/30 hover:text-[#FFF5E9]'
-          }`}
-          title={isPetalsActive ? 'Pause falling petals shower' : 'Resume falling petals shower'}
-          aria-label="Toggle floral petals shower"
-        >
-          <span className="text-sm select-none">🌸</span>
-        </button>
-      )}
     </div>
   );
 };

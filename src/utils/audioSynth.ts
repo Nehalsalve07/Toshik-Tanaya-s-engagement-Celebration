@@ -1,21 +1,71 @@
 // Dedicated Audio Player for "Sahiba" (Jasleen Royal & Stebin Ben)
-// Robust audio handling for GitHub Live, mobile autoplay policies, and reliable playback.
+// Supports bundled master audio, persistent IndexedDB full song storage, and custom audio upload.
 
 import sahibaAudioTrack from '../assets/audio/sahiba.mp3';
+
+const DB_NAME = 'wedding_audio_db';
+const STORE_NAME = 'audio_tracks';
+
+function openAudioDB(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    if (typeof indexedDB === 'undefined') {
+      return reject(new Error('IndexedDB not supported'));
+    }
+    const request = indexedDB.open(DB_NAME, 1);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME);
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function getStoredAudio(): Promise<Blob | null> {
+  try {
+    const db = await openAudioDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.get('full_song');
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => resolve(null);
+    });
+  } catch {
+    return null;
+  }
+}
+
+async function saveStoredAudio(file: Blob): Promise<void> {
+  try {
+    const db = await openAudioDB();
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    const store = tx.objectStore(STORE_NAME);
+    store.put(file, 'full_song');
+  } catch (e) {
+    console.warn('Failed to save audio to IndexedDB', e);
+  }
+}
 
 class SahibaAudioPlayer {
   private audioElement: HTMLAudioElement | null = null;
   private isPlaying: boolean = false;
   private listeners: Set<(playing: boolean) => void> = new Set();
   private initialized: boolean = false;
+  private customAudioUrl: string | null = null;
+  private songTitle: string = 'Sahiba';
 
   private getAudioSrc(): string {
-    // 1. Primary: Use the bundled Vite asset URL
+    if (this.customAudioUrl) {
+      return this.customAudioUrl;
+    }
+
     if (sahibaAudioTrack) {
       return sahibaAudioTrack;
     }
 
-    // 2. Fallback relative to current document location for GitHub Pages live hosting
     if (typeof window !== 'undefined') {
       const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
       return `${window.location.origin}${basePath}audio/sahiba.mp3`;
@@ -53,8 +103,46 @@ class SahibaAudioPlayer {
           this.audioElement.load();
         }
       });
+
+      // Check if user previously uploaded the full song file into persistent IndexedDB
+      getStoredAudio().then((blob) => {
+        if (blob && this.audioElement) {
+          if (this.customAudioUrl) URL.revokeObjectURL(this.customAudioUrl);
+          this.customAudioUrl = URL.createObjectURL(blob);
+          const wasPlaying = this.isPlaying;
+          this.audioElement.src = this.customAudioUrl;
+          this.audioElement.load();
+          if (wasPlaying) {
+            this.play();
+          }
+        }
+      });
     } catch (e) {
       console.warn('Audio initialization warning:', e);
+    }
+  }
+
+  public async setFullSongFile(file: File): Promise<boolean> {
+    this.init();
+    try {
+      if (this.customAudioUrl) {
+        URL.revokeObjectURL(this.customAudioUrl);
+      }
+      this.customAudioUrl = URL.createObjectURL(file);
+      this.songTitle = file.name.replace(/\.[^/.]+$/, '');
+
+      await saveStoredAudio(file);
+
+      if (this.audioElement) {
+        this.audioElement.pause();
+        this.audioElement.src = this.customAudioUrl;
+        this.audioElement.load();
+        return await this.play();
+      }
+      return true;
+    } catch (err) {
+      console.error('Failed to set full song file:', err);
+      return false;
     }
   }
 
@@ -81,7 +169,6 @@ class SahibaAudioPlayer {
       this.notify();
       return true;
     } catch (err) {
-      // Browser autoplay policy prevented unmuted playback prior to user gesture
       console.warn('Autoplay waiting for user gesture:', err);
       this.isPlaying = false;
       this.notify();
@@ -118,6 +205,10 @@ class SahibaAudioPlayer {
 
   public getIsPlaying(): boolean {
     return this.isPlaying;
+  }
+
+  public getSongTitle(): string {
+    return this.songTitle;
   }
 
   public stop() {

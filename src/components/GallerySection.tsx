@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Camera, Heart, Download, X, Plus, Filter, Image as ImageIcon, ChevronLeft, ChevronRight, Check, Trash2, RotateCcw, Sparkles } from 'lucide-react';
+import { Camera, Heart, Download, X, Plus, Filter, Image as ImageIcon, ChevronLeft, ChevronRight, Check, RotateCcw, Sparkles } from 'lucide-react';
 import { GalleryPhoto } from '../types/wedding';
 import { INITIAL_GALLERY_PHOTOS } from '../data/weddingData';
 
-const GALLERY_STORAGE_KEY = 'wedding_gallery_toshik_tanaya_v4';
+const GALLERY_STORAGE_KEY = 'wedding_gallery_toshik_tanaya_v7';
 
 export const GallerySection: React.FC = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
@@ -44,8 +44,6 @@ export const GallerySection: React.FC = () => {
     }
   };
 
-  const [photoToDelete, setPhotoToDelete] = useState<string | null>(null);
-
   const handleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     const updated = photos.map((p) => (p.id === id ? { ...p, likes: p.likes + 1 } : p));
@@ -53,16 +51,6 @@ export const GallerySection: React.FC = () => {
     if (lightboxPhoto && lightboxPhoto.id === id) {
       setLightboxPhoto({ ...lightboxPhoto, likes: lightboxPhoto.likes + 1 });
     }
-  };
-
-  const handleDeletePhoto = (id: string, e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
-    const updated = photos.filter((p) => p.id !== id);
-    savePhotos(updated);
-    if (lightboxPhoto && lightboxPhoto.id === id) {
-      setLightboxPhoto(null);
-    }
-    setPhotoToDelete(null);
   };
 
   const handleResetDefaultPhotos = () => {
@@ -310,25 +298,14 @@ export const GallerySection: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#10152F]/90 via-[#10152F]/30 to-transparent opacity-85 group-hover:opacity-95 transition-opacity" />
 
-                  {/* Top Bar: Delete button & Like button */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setPhotoToDelete(photo.id);
-                      }}
-                      className="p-1.5 bg-[#10152F]/70 hover:bg-red-600 backdrop-blur-md rounded-full text-white/90 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-110"
-                      title="Delete photo"
-                      aria-label="Delete photo"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-
+                  {/* Top Bar: Like button */}
+                  <div className="absolute top-3 right-3 flex items-center justify-end">
                     <button
                       type="button"
                       onClick={(e) => handleLike(photo.id, e)}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-[#10152F]/70 hover:bg-[#10152F] border border-[#D8C19A]/40 backdrop-blur-md rounded-full text-white text-xs transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#10152F]/70 hover:bg-[#10152F] border border-[#D8C19A]/40 backdrop-blur-md rounded-full text-white text-xs transition-colors cursor-pointer shadow-sm active:scale-95"
+                      title="Like photo"
+                      aria-label="Like photo"
                     >
                       <Heart className="w-3.5 h-3.5 fill-[#F4C8D7] text-[#F4C8D7]" />
                       <span className="tabular-nums font-medium text-[#FFF5E9]">{photo.likes}</span>
@@ -436,16 +413,6 @@ export const GallerySection: React.FC = () => {
                     >
                       <Heart className="w-4 h-4 fill-[#342044] text-[#342044]" />
                       <span>Love It ({lightboxPhoto.likes})</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setPhotoToDelete(lightboxPhoto.id)}
-                      className="inline-flex items-center justify-center p-2.5 text-xs font-medium text-red-300 hover:text-white bg-red-950/40 hover:bg-red-600 border border-red-500/30 rounded-full transition-colors cursor-pointer"
-                      title="Delete this photo from album"
-                      aria-label="Delete this photo"
-                    >
-                      <Trash2 className="w-4 h-4" />
                     </button>
 
                     <a
@@ -629,48 +596,6 @@ export const GallerySection: React.FC = () => {
           </div>
         )}
 
-        {/* Delete Confirmation Modal */}
-        {photoToDelete && (
-          <div
-            className="fixed inset-0 z-50 bg-[#10152F]/80 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setPhotoToDelete(null)}
-          >
-            <div
-              className="relative max-w-sm w-full bg-[#FFF5E9] text-[#342044] rounded-3xl p-6 md:p-8 shadow-2xl border-2 border-[#D8C19A] space-y-5 text-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="w-14 h-14 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto border border-red-200">
-                <Trash2 className="w-7 h-7" />
-              </div>
-
-              <div className="space-y-1">
-                <h4 className="font-cormorant text-2xl font-bold text-[#342044]">
-                  Delete Photo?
-                </h4>
-                <p className="text-xs text-[#73526E] leading-relaxed">
-                  Are you sure you want to remove this photograph from the engagement celebration album?
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setPhotoToDelete(null)}
-                  className="flex-1 py-2.5 text-xs font-semibold text-[#342044] bg-white hover:bg-[#FFF8EF] border border-[#D8C19A] rounded-full transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDeletePhoto(photoToDelete)}
-                  className="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 rounded-full transition-all cursor-pointer shadow-md"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
