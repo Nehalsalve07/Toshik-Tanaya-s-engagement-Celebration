@@ -3,7 +3,7 @@ import { Camera, Heart, Download, X, Plus, Filter, Image as ImageIcon, ChevronLe
 import { GalleryPhoto } from '../types/wedding';
 import { INITIAL_GALLERY_PHOTOS } from '../data/weddingData';
 
-const GALLERY_STORAGE_KEY = 'wedding_gallery_toshik_tanaya_v7';
+const GALLERY_STORAGE_KEY = 'wedding_gallery_toshik_tanaya_v9';
 
 export const GallerySection: React.FC = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
@@ -287,13 +287,14 @@ export const GallerySection: React.FC = () => {
               >
                 <div
                   className={`relative overflow-hidden bg-[#21183F] ${
-                    isLarge ? 'aspect-[4/3] sm:aspect-[16/10]' : 'aspect-[4/3]'
+                    isLarge ? 'aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5]' : 'aspect-[3/4] sm:aspect-[4/5]'
                   }`}
                 >
                   <img
                     src={photo.imageUrl}
                     alt={photo.title}
                     referrerPolicy="no-referrer"
+                    style={{ objectPosition: photo.objectPosition || 'center 45%' }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#10152F]/90 via-[#10152F]/30 to-transparent opacity-85 group-hover:opacity-95 transition-opacity" />

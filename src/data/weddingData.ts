@@ -5,6 +5,7 @@ import villaDanceImg from '../assets/images/WhatsApp Image 2026-10-18 at 9.33.34
 import redSareeImg from '../assets/images/WhatsApp Image 2026-10-18 at 9.58.38 PM.jpeg';
 import urbanCandidImg from '../assets/images/WhatsApp Image 2026-10-18 at 10.08.38 PM.jpeg';
 import galaReceptionImg from '../assets/images/IMG_9428.PNG';
+import rosesCelebrationImg from '../assets/images/toshik_tanaya_birthday_roses_celebration.jpeg';
 import ringTrayImg from '../assets/images/engagement_ring_tray_1791903387685.jpg';
 import venueVillaImg from '../assets/images/aditya_villa_celebration_lawn_1792428790628.jpg';
 
@@ -16,7 +17,7 @@ export const IMAGES = {
   mandapSetup: redSareeImg,
   haldiCelebration: villaDanceImg,
   photo1: redSareeImg,
-  photo2: villaDanceImg,
+  photo2: rosesCelebrationImg,
   photo3: urbanCandidImg,
   photo4: galaReceptionImg,
 };
@@ -45,16 +46,18 @@ export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Auspicious Sakharpuda",
     likes: 185,
+    objectPosition: "center 30%",
   },
   {
     id: "photo-2",
-    title: "Sunlit Courtyard Dance at the Villa",
-    caption: "Toshik & Tanaya sharing a joyful, candid dance under the morning sky at Aditya Villa.",
+    title: "Sweet Moments & Celebration Roses",
+    caption: "Tanaya with fresh pink roses beside Toshik celebrating love and cherished milestones together.",
     category: "candid",
-    imageUrl: villaDanceImg,
+    imageUrl: rosesCelebrationImg,
     uploadedBy: "Toshik & Tanaya",
-    timestamp: "Villa Courtyard",
-    likes: 164,
+    timestamp: "Celebration Milestone",
+    likes: 198,
+    objectPosition: "center 48%",
   },
   {
     id: "photo-3",
@@ -65,6 +68,7 @@ export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Romantic Promenade",
     likes: 142,
+    objectPosition: "center 40%",
   },
   {
     id: "photo-4",
@@ -75,6 +79,7 @@ export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
     uploadedBy: "Toshik & Tanaya",
     timestamp: "Evening Soirée",
     likes: 159,
+    objectPosition: "center 35%",
   },
 ];
 

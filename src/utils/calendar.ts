@@ -2,7 +2,7 @@ export const WEDDING_DETAILS = {
   groom: "Toshik Karadbhajne",
   bride: "Tanaya Sarve",
   groomParents: "Mr. Dinkar Karadbhajne & Mrs. Vandana Karadbhajne",
-  brideParents: "Mr. Dattatray Sarve & Mrs. Sulochana Sarve",
+  brideParents: "Mr. Dattatray Sarve & Mrs. Sharayu Sarve",
   dateString: "10 November 2026",
   timeString: "4:30 PM IST",
   eventDate: new Date("2026-11-10T16:30:00+05:30"),
@@ -16,7 +16,7 @@ export function getGoogleCalendarUrl(): string {
   const endTime = "20261110T180000Z"; // 11:30 PM IST in UTC is 6:00 PM UTC
   const title = encodeURIComponent("Engagement Ceremony: Toshik & Tanaya");
   const details = encodeURIComponent(
-    `Auspicious Engagement Ceremony and Sakharpuda / Ring Ceremony of Toshik Karadbhajne (Son of Mr. Dinkar & Mrs. Vandana Karadbhajne) and Tanaya Sarve (Daughter of Mr. Dattatray & Mrs. Sulochana Sarve).\n\nVenue: Aditya villa, Plot no . 141 Shri Suraj Gruhniwaran soc, Besa-Pipla Rd, New Hanuman Nagar, Besa Pipla, Maharashtra 440037.\nCeremony starts at 4:30 PM.`
+    `Auspicious Engagement Ceremony and Sakharpuda / Ring Ceremony of Toshik Karadbhajne (Son of Mr. Dinkar & Mrs. Vandana Karadbhajne) and Tanaya Sarve (Daughter of Mr. Dattatray & Mrs. Sharayu Sarve).\n\nVenue: Aditya villa, Plot no . 141 Shri Suraj Gruhniwaran soc, Besa-Pipla Rd, New Hanuman Nagar, Besa Pipla, Maharashtra 440037.\nCeremony starts at 4:30 PM.`
   );
   const location = encodeURIComponent(WEDDING_DETAILS.venueAddress);
 

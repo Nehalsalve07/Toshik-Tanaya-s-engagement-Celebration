@@ -78,7 +78,7 @@ export const CoupleStory: React.FC = () => {
               <div className="space-y-1 text-sm text-[#5B4058] border-t border-b border-[#D8C19A]/40 py-3 my-2">
                 <p className="font-cormorant italic text-xs text-[#73526E]">Cherished daughter of:</p>
                 <p className="font-cormorant font-bold text-base sm:text-lg text-[#342044]">
-                  Mr. Dattatray Sarve & Mrs. Sulochana Sarve
+                  Mr. Dattatray Sarve & Mrs. Sharayu Sarve
                 </p>
               </div>
 

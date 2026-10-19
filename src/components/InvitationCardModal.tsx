@@ -141,7 +141,7 @@ export const InvitationCardModal: React.FC<InvitationCardModalProps> = ({
               </h2>
               <p className="font-cormorant text-[11px] sm:text-xs md:text-sm text-[#73526E] mt-0.5">
                 Daughter of <strong className="text-[#342044]">Mr. Dattatray Sarve</strong> &{' '}
-                <strong className="text-[#342044]">Mrs. Sulochana Sarve</strong>
+                <strong className="text-[#342044]">Mrs. Sharayu Sarve</strong>
               </p>
             </div>
           </div>

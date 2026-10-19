@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCardModal }) => {
                 Tanaya
               </div>
               <p className="text-[clamp(0.68rem,2.3vw,0.8rem)] text-[#73526E] italic font-serif">
-                Daughter of Mrs. Sulochana & Mr. Dattatray Sarve
+                Daughter of Mrs. Sharayu & Mr. Dattatray Sarve
               </p>
             </div>
 

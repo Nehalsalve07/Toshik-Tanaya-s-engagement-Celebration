@@ -69,7 +69,7 @@ export const QrShareModal: React.FC<QrShareModalProps> = ({ isOpen, onClose }) =
   };
 
   const handleNativeShare = async () => {
-    const shareText = `🌸 Toshik & Tanaya's Engagement Ceremony 🌸\n\nWe cordially invite you to celebrate the joyous Sakharpuda & Ring Ceremony of Toshik (Son of Mr. Dinkar & Mrs. Vandana Karadbhajne) & Tanaya (Daughter of Mr. Dattatray & Mrs. Sulochana Sarve).\n\n📅 Tuesday, 10 November 2026 at 4:30 PM\n📍 Aditya Villa, Besa-Pipla Rd, Maharashtra\n\nView the ceremony details, muhurat schedule & directions:`;
+    const shareText = `🌸 Toshik & Tanaya's Engagement Ceremony 🌸\n\nWe cordially invite you to celebrate the joyous Sakharpuda & Ring Ceremony of Toshik (Son of Mr. Dinkar & Mrs. Vandana Karadbhajne) & Tanaya (Daughter of Mr. Dattatray & Mrs. Sharayu Sarve).\n\n📅 Tuesday, 10 November 2026 at 4:30 PM\n📍 Aditya Villa, Besa-Pipla Rd, Maharashtra\n\nView the ceremony details, muhurat schedule & directions:`;
 
     if (navigator.share) {
       try {
@@ -87,7 +87,7 @@ export const QrShareModal: React.FC<QrShareModalProps> = ({ isOpen, onClose }) =
   };
 
   const handleWhatsAppShare = () => {
-    const message = `🌸 *Toshik & Tanaya's Engagement Ceremony* 🌸\n\nTogether with our families, we cordially invite you to celebrate our auspicious Sakharpuda & Ring Ceremony!\n\n🤵 *Toshik* (S/o Mr. Dinkar & Mrs. Vandana Karadbhajne)\n👰 *Tanaya* (D/o Mr. Dattatray & Mrs. Sulochana Sarve)\n\n📅 *Date:* 10 November 2026\n⏰ *Muhurat:* 4:30 PM\n📍 *Venue:* Aditya Villa, Besa-Pipla Rd, Maharashtra 440037\n\n✨ Tap below to view the full invitation, schedule & venue map:\n${siteUrl}`;
+    const message = `🌸 *Toshik & Tanaya's Engagement Ceremony* 🌸\n\nTogether with our families, we cordially invite you to celebrate our auspicious Sakharpuda & Ring Ceremony!\n\n🤵 *Toshik* (S/o Mr. Dinkar & Mrs. Vandana Karadbhajne)\n👰 *Tanaya* (D/o Mr. Dattatray & Mrs. Sharayu Sarve)\n\n📅 *Date:* 10 November 2026\n⏰ *Muhurat:* 4:30 PM\n📍 *Venue:* Aditya Villa, Besa-Pipla Rd, Maharashtra 440037\n\n✨ Tap below to view the full invitation, schedule & venue map:\n${siteUrl}`;
 
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');

@@ -21,6 +21,7 @@ export interface GalleryPhoto {
   uploadedBy: string;
   timestamp: string;
   likes: number;
+  objectPosition?: string;
 }
 
 export interface ScheduleEvent {
