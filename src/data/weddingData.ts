@@ -81,7 +81,7 @@ export const INITIAL_GALLERY_PHOTOS: GalleryPhoto[] = [
 export const INITIAL_WISHES: GuestWish[] = [
   {
     id: "wish-1",
-    author: "Ramesh & Sunita K.",
+    author: "Suhani Sarve",
     relationship: "Family Friends",
     message: "Heartiest congratulations to dearest Toshik & Tanaya on your Engagement! May your bond grow sweeter and deeper with each passing day.",
     createdAt: "2 days ago",
