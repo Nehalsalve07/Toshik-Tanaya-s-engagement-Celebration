@@ -11,6 +11,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const userManuallyMutedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -18,65 +19,69 @@ export const MusicToggle: React.FC<MusicToggleProps> = () => {
 
     audio.volume = 0.95;
     audio.loop = true;
+    userManuallyMutedRef.current = false;
 
-    // 1. Attempt immediate autoplay when page loads or reloads
-    const attemptAutoplay = () => {
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
+    // Helper to start playback with full unmuted sound
+    const startAudio = () => {
+      if (userManuallyMutedRef.current) return;
+      const a = audioRef.current;
+      if (!a) return;
+
+      a.muted = false;
+      const promise = a.play();
+      if (promise !== undefined) {
+        promise
           .then(() => {
             setIsPlaying(true);
             setIsMuted(false);
           })
           .catch(() => {
-            // Browser autoplay policy restricted unmuted playback on fresh load without prior gesture.
-            // Start muted so audio stream initializes and loops immediately, then unmute on first gesture.
-            setIsPlaying(false);
-            setIsMuted(true);
-
-            // Try starting muted in background
-            audio.muted = true;
-            audio.play().catch(() => {});
+            // If browser requires physical gesture, keep primed
           });
       }
     };
 
-    attemptAutoplay();
+    // 1. Attempt immediate autoplay when page loads
+    startAudio();
 
-    // 2. Universal synchronous interaction listener for Netlify and mobile browsers (iOS/Chrome):
-    // The very first time the visitor taps, clicks, scrolls, or presses any key, immediately unmute and play with full sound!
-    const unlockAudioOnGesture = () => {
-      const a = audioRef.current;
-      if (a) {
-        a.muted = false;
-        a.play()
-          .then(() => {
-            setIsPlaying(true);
-            setIsMuted(false);
-          })
-          .catch(() => {});
+    // 2. Dedicated Scroll-Down and Swipe Trigger:
+    // As soon as the visitor scrolls down (mouse wheel, finger swipe, trackpad, or page scroll),
+    // immediately start the celebration song!
+    const handleScrollTrigger = () => {
+      if (userManuallyMutedRef.current) return;
+      startAudio();
+    };
+
+    // Listen to all scroll mechanisms across window, document, and touch gestures
+    window.addEventListener('scroll', handleScrollTrigger, { passive: true });
+    window.addEventListener('wheel', handleScrollTrigger, { passive: true });
+    window.addEventListener('touchmove', handleScrollTrigger, { passive: true });
+    window.addEventListener('touchstart', handleScrollTrigger, { passive: true });
+    window.addEventListener('pointerdown', handleScrollTrigger, { passive: true });
+    window.addEventListener('click', handleScrollTrigger, { passive: true });
+    window.addEventListener('keydown', handleScrollTrigger, { passive: true });
+    document.addEventListener('scroll', handleScrollTrigger, { passive: true });
+
+    // 3. Fallback: Check scroll position regularly during initial moments
+    const scrollCheckInterval = setInterval(() => {
+      if (window.scrollY > 10 && !userManuallyMutedRef.current) {
+        const a = audioRef.current;
+        if (a && (a.paused || a.muted)) {
+          startAudio();
+        }
       }
-      removeGestureListeners();
-    };
-
-    const removeGestureListeners = () => {
-      window.removeEventListener('click', unlockAudioOnGesture, true);
-      window.removeEventListener('touchstart', unlockAudioOnGesture, true);
-      window.removeEventListener('touchend', unlockAudioOnGesture, true);
-      window.removeEventListener('pointerdown', unlockAudioOnGesture, true);
-      window.removeEventListener('scroll', unlockAudioOnGesture, true);
-      window.removeEventListener('keydown', unlockAudioOnGesture, true);
-    };
-
-    window.addEventListener('click', unlockAudioOnGesture, { capture: true, passive: true });
-    window.addEventListener('touchstart', unlockAudioOnGesture, { capture: true, passive: true });
-    window.addEventListener('touchend', unlockAudioOnGesture, { capture: true, passive: true });
-    window.addEventListener('pointerdown', unlockAudioOnGesture, { capture: true, passive: true });
-    window.addEventListener('scroll', unlockAudioOnGesture, { capture: true, passive: true });
-    window.addEventListener('keydown', unlockAudioOnGesture, { capture: true, passive: true });
+    }, 400);
 
     return () => {
-      removeGestureListeners();
+      window.removeEventListener('scroll', handleScrollTrigger);
+      window.removeEventListener('wheel', handleScrollTrigger);
+      window.removeEventListener('touchmove', handleScrollTrigger);
+      window.removeEventListener('touchstart', handleScrollTrigger);
+      window.removeEventListener('pointerdown', handleScrollTrigger);
+      window.removeEventListener('click', handleScrollTrigger);
+      window.removeEventListener('keydown', handleScrollTrigger);
+      document.removeEventListener('scroll', handleScrollTrigger);
+      clearInterval(scrollCheckInterval);
     };
   }, []);
 
@@ -86,12 +91,16 @@ export const MusicToggle: React.FC<MusicToggleProps> = () => {
     if (!audio) return;
 
     if (audio.paused || audio.muted) {
+      // User tapped to play/unmute
+      userManuallyMutedRef.current = false;
       audio.muted = false;
       audio.play().then(() => {
         setIsPlaying(true);
         setIsMuted(false);
       }).catch(() => {});
     } else {
+      // User tapped to mute
+      userManuallyMutedRef.current = true;
       audio.pause();
       setIsPlaying(false);
       setIsMuted(true);
@@ -121,7 +130,9 @@ export const MusicToggle: React.FC<MusicToggleProps> = () => {
           if (a && !a.src.includes('/audio/sahiba.mp3')) {
             a.src = './audio/sahiba.mp3';
             a.load();
-            a.play().catch(() => {});
+            if (!userManuallyMutedRef.current) {
+              a.play().catch(() => {});
+            }
           }
         }}
       >
