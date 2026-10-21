@@ -1,67 +1,16 @@
-// Dedicated Audio Player for "Sahiba" (Jasleen Royal & Stebin Ben)
-// Supports bundled master audio, persistent IndexedDB full song storage, and custom audio upload.
+// Dedicated Full-Song Audio Player for "Sahiba" (Original Uncut Audio)
+// Fully optimized for standalone Vite development and live Netlify production deployment.
 
 import sahibaAudioTrack from '../assets/audio/sahiba.mp3';
-
-const DB_NAME = 'wedding_audio_db';
-const STORE_NAME = 'audio_tracks';
-
-function openAudioDB(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    if (typeof indexedDB === 'undefined') {
-      return reject(new Error('IndexedDB not supported'));
-    }
-    const request = indexedDB.open(DB_NAME, 1);
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME);
-      }
-    };
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function getStoredAudio(): Promise<Blob | null> {
-  try {
-    const db = await openAudioDB();
-    return new Promise((resolve) => {
-      const tx = db.transaction(STORE_NAME, 'readonly');
-      const store = tx.objectStore(STORE_NAME);
-      const req = store.get('full_song');
-      req.onsuccess = () => resolve(req.result || null);
-      req.onerror = () => resolve(null);
-    });
-  } catch {
-    return null;
-  }
-}
-
-async function saveStoredAudio(file: Blob): Promise<void> {
-  try {
-    const db = await openAudioDB();
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    const store = tx.objectStore(STORE_NAME);
-    store.put(file, 'full_song');
-  } catch (e) {
-    console.warn('Failed to save audio to IndexedDB', e);
-  }
-}
 
 class SahibaAudioPlayer {
   private audioElement: HTMLAudioElement | null = null;
   private isPlaying: boolean = false;
-  private listeners: Set<(playing: boolean) => void> = new Set();
+  private isMutedState: boolean = false;
+  private listeners: Set<(playing: boolean, muted: boolean) => void> = new Set();
   private initialized: boolean = false;
-  private customAudioUrl: string | null = null;
-  private songTitle: string = 'Sahiba';
 
   private getAudioSrc(): string {
-    if (this.customAudioUrl) {
-      return this.customAudioUrl;
-    }
-
     if (sahibaAudioTrack) {
       return sahibaAudioTrack;
     }
@@ -83,11 +32,12 @@ class SahibaAudioPlayer {
       this.audioElement = new Audio(src);
       this.audioElement.loop = true;
       this.audioElement.muted = false;
-      this.audioElement.volume = 0.85;
+      this.audioElement.volume = 0.9;
       this.audioElement.preload = 'auto';
 
       this.audioElement.addEventListener('play', () => {
         this.isPlaying = true;
+        this.isMutedState = false;
         this.notify();
       });
 
@@ -97,24 +47,10 @@ class SahibaAudioPlayer {
       });
 
       this.audioElement.addEventListener('error', () => {
-        console.warn('Primary audio stream encountered an error, attempting fallback source');
+        console.warn('Primary audio stream encountered an issue, trying fallback path');
         if (this.audioElement && !this.audioElement.src.includes('public/audio')) {
           this.audioElement.src = './audio/sahiba.mp3';
           this.audioElement.load();
-        }
-      });
-
-      // Check if user previously uploaded the full song file into persistent IndexedDB
-      getStoredAudio().then((blob) => {
-        if (blob && this.audioElement) {
-          if (this.customAudioUrl) URL.revokeObjectURL(this.customAudioUrl);
-          this.customAudioUrl = URL.createObjectURL(blob);
-          const wasPlaying = this.isPlaying;
-          this.audioElement.src = this.customAudioUrl;
-          this.audioElement.load();
-          if (wasPlaying) {
-            this.play();
-          }
         }
       });
     } catch (e) {
@@ -122,40 +58,16 @@ class SahibaAudioPlayer {
     }
   }
 
-  public async setFullSongFile(file: File): Promise<boolean> {
-    this.init();
-    try {
-      if (this.customAudioUrl) {
-        URL.revokeObjectURL(this.customAudioUrl);
-      }
-      this.customAudioUrl = URL.createObjectURL(file);
-      this.songTitle = file.name.replace(/\.[^/.]+$/, '');
-
-      await saveStoredAudio(file);
-
-      if (this.audioElement) {
-        this.audioElement.pause();
-        this.audioElement.src = this.customAudioUrl;
-        this.audioElement.load();
-        return await this.play();
-      }
-      return true;
-    } catch (err) {
-      console.error('Failed to set full song file:', err);
-      return false;
-    }
-  }
-
-  public subscribe(callback: (playing: boolean) => void) {
+  public subscribe(callback: (playing: boolean, muted: boolean) => void) {
     this.listeners.add(callback);
-    callback(this.isPlaying);
+    callback(this.isPlaying, this.isMutedState);
     return () => {
       this.listeners.delete(callback);
     };
   }
 
   private notify() {
-    this.listeners.forEach((cb) => cb(this.isPlaying));
+    this.listeners.forEach((cb) => cb(this.isPlaying, this.isMutedState));
   }
 
   public async play(): Promise<boolean> {
@@ -164,12 +76,13 @@ class SahibaAudioPlayer {
 
     try {
       this.audioElement.muted = false;
+      this.isMutedState = false;
       await this.audioElement.play();
       this.isPlaying = true;
       this.notify();
       return true;
     } catch (err) {
-      console.warn('Autoplay waiting for user gesture:', err);
+      // Modern browsers require a user gesture before playing audio with sound
       this.isPlaying = false;
       this.notify();
       return false;
@@ -184,18 +97,41 @@ class SahibaAudioPlayer {
     }
   }
 
-  public async toggle(): Promise<boolean> {
-    if (this.isPlaying) {
-      this.pause();
-      return false;
+  public mute() {
+    if (this.audioElement) {
+      this.audioElement.muted = true;
+      this.audioElement.pause();
+      this.isMutedState = true;
+      this.isPlaying = false;
+      this.notify();
+    }
+  }
+
+  public unmute() {
+    if (this.audioElement) {
+      this.audioElement.muted = false;
+      this.isMutedState = false;
+      this.play();
+    }
+  }
+
+  public toggleMute(): boolean {
+    this.init();
+    if (!this.audioElement) return false;
+
+    if (this.isPlaying && !this.audioElement.muted) {
+      this.mute();
+      return true; // now muted
     } else {
-      return await this.play();
+      this.unmute();
+      return false; // now unmuted
     }
   }
 
   public unlock() {
     this.init();
-    if (this.audioElement && this.audioElement.paused) {
+    if (this.audioElement && this.audioElement.paused && !this.isMutedState) {
+      this.audioElement.muted = false;
       this.audioElement.play().then(() => {
         this.isPlaying = true;
         this.notify();
@@ -207,8 +143,8 @@ class SahibaAudioPlayer {
     return this.isPlaying;
   }
 
-  public getSongTitle(): string {
-    return this.songTitle;
+  public getIsMuted(): boolean {
+    return this.isMutedState || !this.isPlaying;
   }
 
   public stop() {

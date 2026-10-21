@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, Play } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { musicPlayer } from '../utils/audioSynth';
 
 interface MusicToggleProps {
@@ -9,11 +9,13 @@ interface MusicToggleProps {
 
 export const MusicToggle: React.FC<MusicToggleProps> = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
-    // 1. Subscribe to playback status updates
-    const unsubscribe = musicPlayer.subscribe((playing) => {
+    // 1. Subscribe to playback and mute status updates
+    const unsubscribe = musicPlayer.subscribe((playing, muted) => {
       setIsPlaying(playing);
+      setIsMuted(muted || !playing);
     });
 
     // 2. Attempt immediate autoplay when website opens
@@ -21,6 +23,7 @@ export const MusicToggle: React.FC<MusicToggleProps> = () => {
       const started = await musicPlayer.play();
       if (started) {
         setIsPlaying(true);
+        setIsMuted(false);
       }
     };
     attemptAutoplay();
@@ -52,68 +55,74 @@ export const MusicToggle: React.FC<MusicToggleProps> = () => {
     };
   }, []);
 
-  const handleToggleMusic = (e: React.MouseEvent) => {
+  const handleToggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
-    musicPlayer.toggle();
+    const nowMuted = musicPlayer.toggleMute();
+    setIsMuted(nowMuted);
+    setIsPlaying(!nowMuted);
   };
 
   return (
     <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] left-3 sm:left-6 z-40 flex items-center">
-      {/* Target button: button:nth-of-type(1) inside div:nth-of-type(3) - Toggle Play / Pause */}
+      {/* Mute / Unmute celebration song button */}
       <button
-        onClick={handleToggleMusic}
-        className={`group flex items-center gap-2 h-9 sm:h-10 px-3.5 sm:px-4 rounded-full shadow-xl border transition-all duration-300 select-none active:scale-95 cursor-pointer touch-manipulation ${
-          isPlaying
-            ? 'bg-gradient-to-r from-[#21183F] via-[#342044] to-[#21183F] text-[#FFF5E9] border-[#D8C19A] ring-2 ring-[#D8C19A]/40 shadow-[#D8C19A]/10'
-            : 'bg-[#10152F]/95 hover:bg-[#1C1635] text-[#D8C19A] border-[#D8C19A]/60 hover:border-[#D8C19A] shadow-lg ring-2 ring-[#D8C19A]/30 animate-pulse'
+        onClick={handleToggleMute}
+        className={`group flex items-center gap-2.5 h-10 px-4 rounded-full shadow-2xl border transition-all duration-300 select-none active:scale-95 cursor-pointer touch-manipulation ${
+          isPlaying && !isMuted
+            ? 'bg-gradient-to-r from-[#21183F] via-[#342044] to-[#21183F] text-[#FFF5E9] border-[#D8C19A] ring-2 ring-[#D8C19A]/40 shadow-[#D8C19A]/20'
+            : 'bg-[#10152F]/95 hover:bg-[#1C1635] text-[#D8C19A] border-rose-400/50 hover:border-[#D8C19A] shadow-lg ring-2 ring-rose-500/20'
         }`}
-        title={isPlaying ? 'Pause Sahiba Song' : 'Play Sahiba Song'}
-        aria-label={isPlaying ? 'Pause celebration song Sahiba' : 'Play celebration song Sahiba'}
+        title={isPlaying && !isMuted ? 'Mute Celebration Song' : 'Unmute & Play Sahiba'}
+        aria-label={isPlaying && !isMuted ? 'Mute Celebration Song' : 'Unmute & Play Sahiba'}
       >
-        {/* Pulsing Audio Waves Indicator */}
-        <div className="flex items-center gap-0.5 h-3">
+        {/* Animated equalizer waves when unmuted; flat bars when muted */}
+        <div className="flex items-center gap-0.5 h-3.5">
           <span
-            className={`w-0.5 rounded-full transition-all ${
-              isPlaying
-                ? 'bg-[#D8C19A] h-2 animate-pulse'
-                : 'bg-[#D8C19A]/40 h-1.5'
-            }`}
-          />
-          <span
-            className={`w-0.5 rounded-full transition-all ${
-              isPlaying
-                ? 'bg-[#FFEAA7] h-3 animate-bounce'
-                : 'bg-[#D8C19A]/40 h-2'
-            }`}
-          />
-          <span
-            className={`w-0.5 rounded-full transition-all ${
-              isPlaying
+            className={`w-0.5 rounded-full transition-all duration-300 ${
+              isPlaying && !isMuted
                 ? 'bg-[#D8C19A] h-2.5 animate-pulse'
-                : 'bg-[#D8C19A]/40 h-1.5'
+                : 'bg-rose-400/40 h-1'
             }`}
           />
           <span
-            className={`w-0.5 rounded-full transition-all ${
-              isPlaying
-                ? 'bg-[#FFEAA7] h-1.5 animate-bounce'
-                : 'bg-[#D8C19A]/40 h-1'
+            className={`w-0.5 rounded-full transition-all duration-300 ${
+              isPlaying && !isMuted
+                ? 'bg-[#FFEAA7] h-3.5 animate-bounce'
+                : 'bg-rose-400/40 h-1.5'
+            }`}
+          />
+          <span
+            className={`w-0.5 rounded-full transition-all duration-300 ${
+              isPlaying && !isMuted
+                ? 'bg-[#D8C19A] h-3 animate-pulse'
+                : 'bg-rose-400/40 h-1'
+            }`}
+          />
+          <span
+            className={`w-0.5 rounded-full transition-all duration-300 ${
+              isPlaying && !isMuted
+                ? 'bg-[#FFEAA7] h-2 animate-bounce'
+                : 'bg-rose-400/40 h-1'
             }`}
           />
         </div>
 
-        {isPlaying ? (
+        {isPlaying && !isMuted ? (
           <Volume2 className="w-4 h-4 text-[#FFEAA7] shrink-0 animate-pulse" />
         ) : (
-          <Play className="w-3.5 h-3.5 text-[#FFEAA7] fill-[#FFEAA7] shrink-0 ml-0.5" />
+          <VolumeX className="w-4 h-4 text-rose-300 shrink-0" />
         )}
 
-        <div className="flex flex-col text-left leading-none">
-          <span className="text-[11px] sm:text-xs font-bold tracking-tight text-[#FFF5E9] font-montserrat">
+        <div className="flex flex-col text-left leading-tight">
+          <span className="text-[11px] sm:text-xs font-bold tracking-tight text-[#FFF5E9] font-montserrat flex items-center gap-1">
             Sahiba
           </span>
-          <span className="text-[9px] text-[#D8C19A] font-medium tracking-wider uppercase font-serif">
-            {isPlaying ? 'Playing' : 'Tap to Play'}
+          <span className="text-[9px] font-semibold tracking-wider uppercase font-serif">
+            {isPlaying && !isMuted ? (
+              <span className="text-[#D8C19A]">Tap to Mute</span>
+            ) : (
+              <span className="text-rose-300">Muted · Tap to Play</span>
+            )}
           </span>
         </div>
       </button>
