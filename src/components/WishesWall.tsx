@@ -3,7 +3,7 @@ import { Heart, MessageSquareHeart, Send, Sparkles } from 'lucide-react';
 import { GuestWish } from '../types/wedding';
 import { INITIAL_WISHES } from '../data/weddingData';
 
-const WISHES_STORAGE_KEY = 'wedding_wishes_toshik_tanaya';
+const WISHES_STORAGE_KEY = 'wedding_wishes_toshik_tanaya_v2';
 
 export const WishesWall: React.FC = () => {
   const [wishes, setWishes] = useState<GuestWish[]>([]);
